@@ -9,7 +9,7 @@ Claude Code: update this at the **end of every session/phase**. Newest entry on 
 - **Phase:** 1 done → next is Phase 2 (baselines + models)
 - **Last updated:** Sun Nov 15, 18:30 WIB
 - **Next step:** `pipeline/03_baselines.py` (B0, B1 on train CV), then `04_models.py` (LR + default random forest, 5-fold CV, threshold tuning).
-- **Blockers:** none. Repo: https://github.com/SycthePlays/SiagaBumil (branch `main`).
+- **Blockers:** none. Repo: https://github.com/SycthePlays/SigapBumil (branch `main`). Pages URL (Phase 5): https://sycthePlays.github.io/SigapBumil/
 - **Commit rule:** end of every phase → show `git status` + summary + proposed message, wait for "ya"/"ok", then commit and push (`CLAUDE.md` §11).
 
 ---

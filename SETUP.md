@@ -18,8 +18,8 @@ VS Code + Claude Code (local)  ──push──►  GitHub (public repo)
 Install: **Git**, **VS Code**, **Python 3.10+**, **Node.js** (for the JS parity test).
 
 ```bash
-git clone https://github.com/<your-username>/sigapbumil.git
-cd sigapbumil
+git clone https://github.com/SycthePlays/SigapBumil.git
+cd SigapBumil
 code .
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
@@ -45,15 +45,15 @@ Docs: https://code.claude.com/docs/en/vs-code
 
 - Claude Code writes `.github/workflows/pages.yml` in Phase 5 (deploys `web/` on push to `main`).
 - Repo → Settings → Pages → Source: **GitHub Actions**.
-- URL: `https://<your-username>.github.io/sigapbumil/` — test in incognito, on a phone, and offline after first load.
+- URL: `https://sycthePlays.github.io/SigapBumil/` — test in incognito, on a phone, and offline after first load.
 
 ## 4. Google Colab (walkthrough notebook)
 
 Why things "disappear" in Colab: the runtime is temporary — uploaded files are wiped when it disconnects/resets. The notebook file (code + saved outputs) persists. So **never upload by hand; clone the repo**.
 
 ```python
-!git clone https://github.com/<your-username>/sigapbumil.git
-%cd sigapbumil
+!git clone https://github.com/SycthePlays/SigapBumil.git
+%cd SigapBumil
 !pip install -q -r requirements.txt
 ```
 
