@@ -56,10 +56,10 @@ See `SETUP.md` for step-by-step tool setup.
 - **Done when:** JS predictions = Python predictions.
 
 ## Phase 5 — Web app + deploy · Sun 21:30–00:30
-- [ ] `web/index.html`, `style.css`, `app.js` per `WEB-SPEC.md` (no dark mode)
-- [ ] Bilingual labels, units, validation, examples, result card, reasons, How-it-works, limitations
-- [ ] `.github/workflows/pages.yml`; Pages source = GitHub Actions
-- [ ] Test on phone + incognito + offline reload
+- [x] `web/index.html`, `style.css`, `app.js` per `WEB-SPEC.md` (no dark mode); `sw.js` for offline
+- [x] Bilingual labels, units, validation, examples, result card, reasons, How-it-works, limitations
+- [x] `.github/workflows/pages.yml` written — [ ] push, then set Pages source = GitHub Actions (**developer**)
+- [x] Checked locally in Chrome at 360 px and 1280 px, incl. offline reload — [ ] real phone + incognito on the public URL + Lighthouse
 - **No fallback host.** If Pages is blocked, the repo + README + video are still a complete submission (the website is not required).
 - **Done when:** a stranger can open the public URL and get a result.
 

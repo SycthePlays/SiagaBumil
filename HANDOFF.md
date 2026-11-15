@@ -6,9 +6,9 @@ Claude Code: update this at the **end of every session/phase**. Newest entry on 
 
 ## Current status
 
-- **Phase:** 4 done → next is Phase 5 (web app + deploy)
-- **Last updated:** Sun Nov 15, 20:50 WIB
-- **Next step:** read `WEB-SPEC.md` in full, then `web/index.html`, `style.css`, `app.js` (imports `inference.js`), `sw.js`, `.github/workflows/pages.yml`.
+- **Phase:** 5 built and checked locally → waiting for developer's ok to commit + push; then enable Pages and test on a real phone
+- **Last updated:** Sun Nov 15, 21:25 WIB
+- **Next step:** after push: repo Settings → Pages → Source = **GitHub Actions**, open the public URL in incognito and on a phone, run Lighthouse. Then Phase 6 (README from `results/summary.json`).
 - **Blockers:** none. Repo: https://github.com/SycthePlays/SigapBumil (branch `main`). Pages URL (Phase 5): https://sycthePlays.github.io/SigapBumil/
 - **Commit rule:** end of every phase → show `git status` + summary + proposed message, wait for "ya"/"ok", then commit and push (`CLAUDE.md` §11).
 
@@ -65,11 +65,23 @@ Started ~6 h late. Where another doc still mentions these, this list wins:
 - **Where it fails:** (1) high-risk mothers whose six vitals all look normal, e.g. age 34, BP 110/70, sugar 7.0, 98 °F: the rule misses her too, so the label depends on something outside our six numbers or is noise. (2) One abnormal number among normal ones, e.g. age 40, BP 120/**95**: the rule catches it, our model does not, because a linear model averages the normal values against the bad one. (3) False alarms are mostly fever (101–103 °F) cases labelled low or mid.
 
 ### Phase 5 — Web app
-- 
+- **The website does no AI of its own.** `app.js` is only the form and the drawing. Every probability comes from `inference.js`, the same file the parity test checks against Python, so the phone gives the same answer as scikit-learn.
+- **Nothing leaves the phone.** No server, no cookies, no storage. The only requests are the site's own files; after the first visit a service worker serves them from a local copy, so it opens with no internet.
+- **Two separate signals on the result card.** The action banner is the model. The red "Tanda bahaya" box is a plain rule (one vital past a fixed cutoff). It exists because the linear model can let normal values hide one very bad number.
+- **The Borderline example is the story:** 135/88, sugar 150, pulse 92, age 37. No single number passes a cutoff (no danger box), but the model says Rujuk sekarang at 48% high risk.
+- **Every number in "Cara kerja" is read from `results.json`** at load time (table, leakage, age groups, the 84% lower bound). None are typed into the page.
 
 ---
 
 ## Log
+
+### Sun Nov 15, 21:25 — Phase 5 built (web app), not yet deployed
+- Phase 4 committed and pushed (`0dab03e`). Follow-ups from the developer applied: "Tidak ada faktor risiko menonjol / No strong risk factors" replaces "Why?" on Rutin; README limitation "refers often (136 of 304 in CV)"; SETUP says Node 22.7+.
+- New: `web/index.html`, `style.css`, `app.js`, `sw.js`, `img/favicon.svg`, `.github/workflows/pages.yml`. No dark mode.
+- **Checked in Chrome at 360 px and 1280 px (local server):** 3 example chips give the same action and percentages as `test_cases.json`; SBP ≤ DBP, out-of-range and empty fields keep the Check button off with a message; ID/EN switches every string including a result on screen; danger box only on the high-risk example; disclaimer on every result; requests are own files only; no cookies or storage; no horizontal scroll; reload with the network set to Offline still loads the page and model.
+- **Not checked yet:** real phone, public URL in incognito, Lighthouse accessibility score.
+- Service worker serves the cached copy first and refreshes it in the background, so a new push shows up on the second visit, not the first.
+- Added beyond the spec text: sugar value converts when the unit is switched; decimal comma accepted ("36,7"); arrow in "Why?" points down when the value is below the training average.
 
 ### Sun Nov 15, 20:50 — Phase 4 done (export + parity)
 - New: `pipeline/07_export.py`, `web/inference.js`, `tests/test_parity.mjs`; `run_all.py` now runs 07 and the Node parity test. Outputs: `web/model.json`, `web/results.json`, `web/test_cases.json` (30 cases: 3 demos, 9 fixed, 18 random), `web/img/` (4 plots), `models/sigapbumil_lr.joblib`.

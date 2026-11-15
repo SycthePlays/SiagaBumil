@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SigapBumil</title>
+  <meta name="description" content="SigapBumil: maternal risk triage prototype for village midwives. Not medical advice.">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- All visible text comes from the STR dictionary in app.js (data-i18n = key). -->
+  <header class="site-header">
+    <h1 class="wordmark">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 21s-8-5.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.5-8 11-8 11z"/>
+        <path d="M6.5 12h2.5l1.5-3 3 6 1.5-3h2.5"/>
+      </svg>
+      <span>Sigap<b>Bumil</b></span>
+    </h1>
+    <div class="lang" role="group" aria-label="Bahasa / Language">
+      <button type="button" data-lang="id" aria-pressed="true">ID</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <p class="tagline" data-i18n="tagline"></p>
+    <span class="badge" data-i18n="badge"></span>
+  </header>
+
+  <main>
+    <div class="top">
+      <section class="card" aria-labelledby="checker-title">
+        <h2 id="checker-title" data-i18n="checkerTitle"></h2>
+        <p class="label" data-i18n="examples"></p>
+        <div class="chips" id="chips"></div>
+
+        <form id="form" novalidate>
+          <div class="field">
+            <label for="age" data-i18n="age"></label>
+            <div class="input-wrap">
+              <input id="age" inputmode="decimal" autocomplete="off" aria-describedby="age-err">
+              <span class="unit" data-i18n="years"></span>
+            </div>
+            <p class="error" id="age-err"></p>
+          </div>
+
+          <fieldset class="field">
+            <legend data-i18n="bp"></legend>
+            <div class="bp">
+              <div>
+                <label for="sbp" data-i18n="sbp"></label>
+                <div class="input-wrap">
+                  <input id="sbp" inputmode="decimal" autocomplete="off" aria-describedby="sbp-err bp-err">
+                  <span class="unit">mmHg</span>
+                </div>
+                <p class="hint" data-i18n="sbpHint"></p>
+                <p class="error" id="sbp-err"></p>
+              </div>
+              <div>
+                <label for="dbp" data-i18n="dbp"></label>
+                <div class="input-wrap">
+                  <input id="dbp" inputmode="decimal" autocomplete="off" aria-describedby="dbp-err bp-err">
+                  <span class="unit">mmHg</span>
+                </div>
+                <p class="hint" data-i18n="dbpHint"></p>
+                <p class="error" id="dbp-err"></p>
+              </div>
+            </div>
+            <p class="error" id="bp-err"></p>
+          </fieldset>
+
+          <div class="field">
+            <label for="sugar" data-i18n="sugar"></label>
+            <div class="input-wrap">
+              <input id="sugar" inputmode="decimal" autocomplete="off" aria-describedby="sugar-err">
+              <button type="button" class="unit" id="sugar-unit"></button>
+            </div>
+            <p class="hint" data-i18n="sugarHint"></p>
+            <p class="error" id="sugar-err"></p>
+          </div>
+
+          <div class="field">
+            <label for="temp" data-i18n="temp"></label>
+            <div class="input-wrap">
+              <input id="temp" inputmode="decimal" autocomplete="off" aria-describedby="temp-err">
+              <span class="unit">°C</span>
+            </div>
+            <p class="error" id="temp-err"></p>
+          </div>
+
+          <div class="field">
+            <label for="pulse" data-i18n="pulse"></label>
+            <div class="input-wrap">
+              <input id="pulse" inputmode="decimal" autocomplete="off" aria-describedby="pulse-err">
+              <span class="unit">bpm</span>
+            </div>
+            <p class="hint" data-i18n="pulseHint"></p>
+            <p class="error" id="pulse-err"></p>
+          </div>
+
+          <button type="submit" class="btn-primary" id="check" data-i18n="check" disabled></button>
+          <button type="button" class="btn-text" id="reset" data-i18n="reset"></button>
+        </form>
+      </section>
+
+      <section class="card result" id="result" aria-labelledby="result-title">
+        <h2 id="result-title" data-i18n="resultTitle"></h2>
+        <div id="result-body" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <details class="card" id="how">
+      <summary data-i18n="howTitle"></summary>
+      <div id="how-body"></div>
+    </details>
+
+    <section class="card" aria-labelledby="limits-title">
+      <h2 id="limits-title" data-i18n="limitsTitle"></h2>
+      <ul id="limits-list"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p data-i18n="privacy"></p>
+    <p data-i18n="disclaimer"></p>
+    <p>
+      <span data-i18n="credits"></span>
+      <a href="https://doi.org/10.24432/C5DP5D">UCI Maternal Health Risk</a> (Ahmed, 2020, CC BY 4.0) ·
+      scikit-learn · Claude / Claude Code
+    </p>
+    <p><a href="https://github.com/SycthePlays/SigapBumil" data-i18n="repoLink"></a></p>
+  </footer>
+
+  <noscript>JavaScript diperlukan / JavaScript is required.</noscript>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

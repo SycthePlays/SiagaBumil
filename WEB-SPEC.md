@@ -147,7 +147,7 @@ web/
 ├── app.js         # UI: form, validation, render + STR dictionary (id/en); imports inference.js
 ├── inference.js   # model math only (toModelUnits, predict, decide, explain, dangerSigns); ES module,
 │                  #   the same file is tested against Python by tests/test_parity.mjs
-├── sw.js          # service worker: cache-first for site files (offline)
+├── sw.js          # service worker: cache-first for site files (offline); refreshes the copy in the background
 ├── model.json     # from pipeline/07_export.py
 ├── results.json   # from pipeline/07_export.py (copy of results/summary.json)
 ├── test_cases.json
