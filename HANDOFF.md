@@ -94,6 +94,11 @@ Started ~6 h late. Where another doc still mentions these, this list wins:
 
 ## Log
 
+### Sun Nov 15 — walkthrough notebook: Colab-friendly + saved outputs
+- Cell 1 no longer installs `requirements.txt` (the pinned versions clash with Colab's own pandas/numpy). It clones only when running in Colab and the folder is missing; locally it just moves to the repo root. Note added: Colab's libraries are used, the pins are for full local reproduction.
+- Outputs saved by executing locally with `python -m nbconvert --execute --inplace` (path B; no Colab-run copy was found). nbconvert + ipykernel were installed into `.venv` only, **not** added to `requirements.txt`. The `jupyter` launcher exe was blocked by Windows Application Control; the policy was not changed.
+- All 8 code cells have outputs, no errors, 3 plots embedded. The 3 examples match `web/test_cases.json`. **Still not re-run in Colab after this change.**
+
 ### Sun Nov 15, 21:40 — Phase 6 done (write-up, notebook, docs)
 - Phase 5 committed and pushed (`a7369b0`).
 - `README.md` rewritten to the hackathon template. Every number matches `results/summary.json` (the results table was compared with one printed from the file). Placeholder left on purpose: demo video link. B1 cutoff sources (two WHO documents with URLs) and the Buku KIA sentence were supplied by the developer.
