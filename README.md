@@ -41,9 +41,13 @@ _Held-out test set, n = __._
 - _Age groups: high-risk recall __ / __ / __ (n = __ / __ / __)._
 - _External dataset: __ (or: why it was skipped)._
 
+**Honest notes**
+- **A random forest scored better and we did not deploy it.** In cross-validation, at the same 90% high-risk recall, the random forest raised 44 false alarms and our logistic regression 63 (the clinical rule: 72). We deployed logistic regression anyway because every result can be explained to the bidan (which vital raised the score) and the exact same arithmetic runs offline in the browser, checked against Python to within 1e-6. This was decided from cross-validation, before the test set was opened.
+- **The test evaluation ran twice.** The second run was a clean rebuild after we added a Wilson confidence interval to the report. Features, model and thresholds were not changed in between, and the numbers are identical.
+
 **Where it fails:** _1–2 concrete missed cases and why we think it happens._
 
-**Limitations:** labels are assigned risk levels, not real outcomes; data from rural Bangladesh, not Indonesia; small sample after deduplication; rows with identical vitals but conflicting labels were removed, so the remaining data is cleaner than real life and results may be slightly optimistic; six vitals only; thresholds favour recall, so false alarms are higher by design.
+**Limitations:** labels are assigned risk levels, not real outcomes; data from rural Bangladesh, not Indonesia; small sample after deduplication; rows with identical vitals but conflicting labels were removed, so the remaining data is cleaner than real life and results may be slightly optimistic; six vitals only; tuned to rarely miss high risk, so it refers often (136 of 304 in CV).
 
 ## What we'd do next
 

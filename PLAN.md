@@ -47,10 +47,12 @@ See `SETUP.md` for step-by-step tool setup.
 - [x] HANDOFF.md: "How to explain to judges" bullets for every result
 - **Done when:** all results files exist and are frozen.
 
-## Phase 4 — Export + parity · Sun 21:00–21:30
-- [ ] `07_export.py` → `web/model.json`, `web/test_cases.json`, `models/sigapbumil_lr.joblib`
-- [ ] Commit model files + `results/` (needed for Colab and judges)
-- [ ] `tests/test_parity.mjs` passes
+## Phase 4 — Export + parity · Sun 20:20–20:50 ✅
+- [x] `07_export.py` → `web/model.json`, `web/results.json`, `web/test_cases.json` (30 cases), `web/img/`, `models/sigapbumil_lr.joblib`
+- [x] `web/inference.js` — model math as an ES module, shared by the site and the parity test
+- [x] `tests/test_parity.mjs` passes (max difference 2.2e-16); added to `run_all.py`
+- [x] Danger-sign warning specified in `WEB-SPEC.md` §4.3
+- [x] Commit model files
 - **Done when:** JS predictions = Python predictions.
 
 ## Phase 5 — Web app + deploy · Sun 21:30–00:30

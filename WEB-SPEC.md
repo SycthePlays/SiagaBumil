@@ -93,6 +93,12 @@ States:
    - **"Mengapa? / Why?"**: top 3 reasons as a list, each with the patient's value and a small arrow ↑ (e.g. *"Tekanan darah sistolik 150 mmHg ↑"*).
    - Inputs outside common ranges highlighted with a small amber dot in the summary.
    - Disclaimer line (muted, 13 px) — always visible on the card.
+   - **"Tanda bahaya / Danger sign" warning** (added Phase 4) — a separate box above the action banner, shown when **any single vital** passes a fixed cutoff, **independent of the model**:
+     - Systolic BP ≥ 140 mmHg · Diastolic BP ≥ 90 mmHg · Temperature ≥ 38 °C · Blood sugar ≥ 200 mg/dL
+     - Why: the model is linear and can let several normal values outweigh one very abnormal one (seen in CV: BP 120/95 was not referred). The warning makes sure one dangerous number is never hidden.
+     - Cutoffs are read from `model.json.danger_cutoffs` (dataset units: mmol/L, °F; same as baseline B1) via `dangerSigns()` in `inference.js`. Show them in the bidan's units.
+     - Style: `--refer` colour + ⚠ icon + text; lists each vital that passed, with its value (e.g. *"Tekanan darah diastolik 95 mmHg ≥ 90"*). It does **not** change the model's action or probabilities; when the action is not "Rujuk sekarang", add the line *"Pertimbangkan rujukan / Consider referral"*.
+   - **"Mengapa? / Why?" is shown only for Rujuk and Cek ulang.** For Rutin the list is replaced by the text *"Tidak ada faktor risiko menonjol / No strong risk factors"* (the "top reason" for a healthy 25-year-old would be her age, which is confusing).
 3. **Error** (model failed to load): friendly message + "Muat ulang / Reload" button.
 
 Result region has `aria-live="polite"` so screen readers announce it.
@@ -125,6 +131,7 @@ explain()       top 3 positive w_high,k × z_k → labels from model.json.featur
 render()        result card; re-render on language toggle
 ```
 
+- **Phase 4 update:** the model math lives in `web/inference.js` (already written and parity-tested); `app.js` loads it with `<script type="module">` and only does UI. The model uses the **6 raw vitals** (engineered features were dropped in CV). Example chips come from `model.json.examples`; the "Borderline" chip gives **Rujuk sekarang** with no danger sign (the combination, not one number, is risky).
 - Feature order always taken from `model.json.features` — never hard-coded.
 - Same math as Python; verified by `tests/test_parity.mjs` against `test_cases.json`.
 - Keep `app.js` readable: small named functions, comments explaining *why* (the developer must explain it to judges).
@@ -137,7 +144,9 @@ render()        result card; re-render on language toggle
 web/
 ├── index.html     # semantic HTML: header, main (checker + result), sections, footer
 ├── style.css      # tokens on :root, mobile-first, one breakpoint at 768px
-├── app.js         # logic above + STR dictionary (id/en)
+├── app.js         # UI: form, validation, render + STR dictionary (id/en); imports inference.js
+├── inference.js   # model math only (toModelUnits, predict, decide, explain, dangerSigns); ES module,
+│                  #   the same file is tested against Python by tests/test_parity.mjs
 ├── sw.js          # service worker: cache-first for site files (offline)
 ├── model.json     # from pipeline/07_export.py
 ├── results.json   # from pipeline/07_export.py (copy of results/summary.json)

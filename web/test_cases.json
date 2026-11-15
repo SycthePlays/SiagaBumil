@@ -1,0 +1,736 @@
+[
+ {
+  "demo": "routine",
+  "input": {
+   "age": 25,
+   "sbp": 110,
+   "dbp": 70,
+   "sugar_mgdl": 110,
+   "temp_c": 36.7,
+   "pulse": 72
+  },
+  "proba": [
+   0.6219278953889336,
+   0.3209424058126971,
+   0.05712969879836925
+  ],
+  "action": "routine",
+  "reasons": [
+   "Age"
+  ],
+  "danger_signs": []
+ },
+ {
+  "demo": "borderline",
+  "input": {
+   "age": 37,
+   "sbp": 135,
+   "dbp": 88,
+   "sugar_mgdl": 150,
+   "temp_c": 36.8,
+   "pulse": 92
+  },
+  "proba": [
+   0.09132419131781858,
+   0.42399020522926334,
+   0.48468560345291817
+  ],
+  "action": "refer",
+  "reasons": [
+   "SystolicBP",
+   "HeartRate",
+   "DiastolicBP"
+  ],
+  "danger_signs": []
+ },
+ {
+  "demo": "high",
+  "input": {
+   "age": 38,
+   "sbp": 150,
+   "dbp": 95,
+   "sugar_mgdl": 250,
+   "temp_c": 37.0,
+   "pulse": 88
+  },
+  "proba": [
+   0.0016500879860196118,
+   0.0789361785106454,
+   0.919413733503335
+  ],
+  "action": "refer",
+  "reasons": [
+   "BS",
+   "SystolicBP",
+   "HeartRate"
+  ],
+  "danger_signs": [
+   "SystolicBP",
+   "DiastolicBP",
+   "BS"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 30,
+   "sbp": 140,
+   "dbp": 90,
+   "sugar_mgdl": 200,
+   "temp_c": 38.0,
+   "pulse": 80
+  },
+  "proba": [
+   0.004999968111978159,
+   0.1525667789390651,
+   0.8424332529489567
+  ],
+  "action": "refer",
+  "reasons": [
+   "BS",
+   "SystolicBP",
+   "BodyTemp"
+  ],
+  "danger_signs": [
+   "SystolicBP",
+   "DiastolicBP",
+   "BS",
+   "BodyTemp"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 30,
+   "sbp": 139,
+   "dbp": 89,
+   "sugar_mgdl": 199,
+   "temp_c": 37.9,
+   "pulse": 80
+  },
+  "proba": [
+   0.006322461605631731,
+   0.16755581207411416,
+   0.826121726320254
+  ],
+  "action": "refer",
+  "reasons": [
+   "BS",
+   "SystolicBP",
+   "BodyTemp"
+  ],
+  "danger_signs": []
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 28,
+   "sbp": 120,
+   "dbp": 80,
+   "sugar_mgdl": 125,
+   "temp_c": 36.9,
+   "pulse": 78
+  },
+  "proba": [
+   0.3660464201502378,
+   0.4418467333280762,
+   0.192106846521686
+  ],
+  "action": "recheck",
+  "reasons": [
+   "SystolicBP",
+   "HeartRate",
+   "DiastolicBP"
+  ],
+  "danger_signs": []
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 26,
+   "sbp": 118,
+   "dbp": 78,
+   "sugar_mgdl": 120,
+   "temp_c": 36.8,
+   "pulse": 76
+  },
+  "proba": [
+   0.4542789398925199,
+   0.4070944346201993,
+   0.13862662548728089
+  ],
+  "action": "recheck",
+  "reasons": [
+   "SystolicBP",
+   "HeartRate",
+   "DiastolicBP"
+  ],
+  "danger_signs": []
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 31,
+   "sbp": 115,
+   "dbp": 75,
+   "sugar_mgdl": 122,
+   "temp_c": 36.7,
+   "pulse": 80
+  },
+  "proba": [
+   0.4577656733911519,
+   0.41750592561268146,
+   0.12472840099616678
+  ],
+  "action": "recheck",
+  "reasons": [
+   "HeartRate",
+   "SystolicBP"
+  ],
+  "danger_signs": []
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 22,
+   "sbp": 100,
+   "dbp": 65,
+   "sugar_mgdl": 112,
+   "temp_c": 36.7,
+   "pulse": 70
+  },
+  "proba": [
+   0.7250971255858327,
+   0.23965192192215218,
+   0.035250952492015236
+  ],
+  "action": "routine",
+  "reasons": [
+   "Age"
+  ],
+  "danger_signs": []
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 24,
+   "sbp": 115,
+   "dbp": 75,
+   "sugar_mgdl": 115,
+   "temp_c": 36.7,
+   "pulse": 74
+  },
+  "proba": [
+   0.5498398766926698,
+   0.3584289389177676,
+   0.09173118438956261
+  ],
+  "action": "routine",
+  "reasons": [
+   "SystolicBP",
+   "Age",
+   "HeartRate"
+  ],
+  "danger_signs": []
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 29,
+   "sbp": 105,
+   "dbp": 68,
+   "sugar_mgdl": 108,
+   "temp_c": 36.7,
+   "pulse": 68
+  },
+  "proba": [
+   0.7059451725242746,
+   0.2593866177436761,
+   0.034668209732049364
+  ],
+  "action": "routine",
+  "reasons": [
+   "Age"
+  ],
+  "danger_signs": []
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 33,
+   "sbp": 112,
+   "dbp": 72,
+   "sugar_mgdl": 110,
+   "temp_c": 36.7,
+   "pulse": 66
+  },
+  "proba": [
+   0.6455319418297933,
+   0.3081552177746586,
+   0.04631284039554807
+  ],
+  "action": "routine",
+  "reasons": [
+   "SystolicBP"
+  ],
+  "danger_signs": []
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 35,
+   "sbp": 92,
+   "dbp": 75,
+   "sugar_mgdl": 185,
+   "temp_c": 38.9,
+   "pulse": 60
+  },
+  "proba": [
+   0.08929356435520601,
+   0.3288004765381592,
+   0.5819059591066349
+  ],
+  "action": "refer",
+  "reasons": [
+   "BodyTemp",
+   "BS"
+  ],
+  "danger_signs": [
+   "BodyTemp"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 17,
+   "sbp": 141,
+   "dbp": 61,
+   "sugar_mgdl": 206,
+   "temp_c": 38.5,
+   "pulse": 119
+  },
+  "proba": [
+   0.00020770549524832114,
+   0.10995287130188258,
+   0.8898394232028691
+  ],
+  "action": "refer",
+  "reasons": [
+   "HeartRate",
+   "BS",
+   "BodyTemp"
+  ],
+  "danger_signs": [
+   "SystolicBP",
+   "BS",
+   "BodyTemp"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 30,
+   "sbp": 143,
+   "dbp": 94,
+   "sugar_mgdl": 110,
+   "temp_c": 37.3,
+   "pulse": 88
+  },
+  "proba": [
+   0.10655442087730232,
+   0.4718109328619496,
+   0.4216346462607481
+  ],
+  "action": "refer",
+  "reasons": [
+   "SystolicBP",
+   "HeartRate",
+   "DiastolicBP"
+  ],
+  "danger_signs": [
+   "SystolicBP",
+   "DiastolicBP"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 43,
+   "sbp": 115,
+   "dbp": 60,
+   "sugar_mgdl": 268,
+   "temp_c": 38.8,
+   "pulse": 97
+  },
+  "proba": [
+   0.00029592540148536725,
+   0.08180616397319587,
+   0.9178979106253187
+  ],
+  "action": "refer",
+  "reasons": [
+   "BS",
+   "BodyTemp",
+   "HeartRate"
+  ],
+  "danger_signs": [
+   "BS",
+   "BodyTemp"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 28,
+   "sbp": 129,
+   "dbp": 74,
+   "sugar_mgdl": 134,
+   "temp_c": 37.7,
+   "pulse": 113
+  },
+  "proba": [
+   0.021225578332280507,
+   0.4073805788089558,
+   0.5713938428587636
+  ],
+  "action": "refer",
+  "reasons": [
+   "HeartRate",
+   "SystolicBP",
+   "BodyTemp"
+  ],
+  "danger_signs": []
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 40,
+   "sbp": 90,
+   "dbp": 76,
+   "sugar_mgdl": 146,
+   "temp_c": 38.5,
+   "pulse": 96
+  },
+  "proba": [
+   0.11640303477253011,
+   0.37800572301980434,
+   0.5055912422076655
+  ],
+  "action": "refer",
+  "reasons": [
+   "BodyTemp",
+   "HeartRate",
+   "DiastolicBP"
+  ],
+  "danger_signs": [
+   "BodyTemp"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 17,
+   "sbp": 141,
+   "dbp": 69,
+   "sugar_mgdl": 313,
+   "temp_c": 39.1,
+   "pulse": 99
+  },
+  "proba": [
+   5.381358964867155e-06,
+   0.012283756569975265,
+   0.9877108620710597
+  ],
+  "action": "refer",
+  "reasons": [
+   "BS",
+   "BodyTemp",
+   "SystolicBP"
+  ],
+  "danger_signs": [
+   "SystolicBP",
+   "BS",
+   "BodyTemp"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 21,
+   "sbp": 148,
+   "dbp": 92,
+   "sugar_mgdl": 167,
+   "temp_c": 35.7,
+   "pulse": 85
+  },
+  "proba": [
+   0.14540293654714226,
+   0.3808156850565834,
+   0.4737813783962744
+  ],
+  "action": "refer",
+  "reasons": [
+   "SystolicBP",
+   "BS",
+   "HeartRate"
+  ],
+  "danger_signs": [
+   "SystolicBP",
+   "DiastolicBP"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 38,
+   "sbp": 129,
+   "dbp": 58,
+   "sugar_mgdl": 244,
+   "temp_c": 38.5,
+   "pulse": 79
+  },
+  "proba": [
+   0.0009359348669287157,
+   0.18268070844418666,
+   0.8163833566888846
+  ],
+  "action": "refer",
+  "reasons": [
+   "BS",
+   "BodyTemp",
+   "SystolicBP"
+  ],
+  "danger_signs": [
+   "BS",
+   "BodyTemp"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 25,
+   "sbp": 163,
+   "dbp": 73,
+   "sugar_mgdl": 298,
+   "temp_c": 37.4,
+   "pulse": 79
+  },
+  "proba": [
+   8.956876738384402e-05,
+   0.05083183498750362,
+   0.9490785962451126
+  ],
+  "action": "refer",
+  "reasons": [
+   "BS",
+   "SystolicBP",
+   "BodyTemp"
+  ],
+  "danger_signs": [
+   "SystolicBP",
+   "BS"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 29,
+   "sbp": 149,
+   "dbp": 60,
+   "sugar_mgdl": 111,
+   "temp_c": 37.4,
+   "pulse": 76
+  },
+  "proba": [
+   0.041105302823997596,
+   0.7760736490396847,
+   0.1828210481363176
+  ],
+  "action": "recheck",
+  "reasons": [
+   "SystolicBP",
+   "BodyTemp",
+   "HeartRate"
+  ],
+  "danger_signs": [
+   "SystolicBP"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 35,
+   "sbp": 103,
+   "dbp": 74,
+   "sugar_mgdl": 306,
+   "temp_c": 38.8,
+   "pulse": 83
+  },
+  "proba": [
+   0.0003444304974334089,
+   0.03142671083645379,
+   0.9682288586661129
+  ],
+  "action": "refer",
+  "reasons": [
+   "BS",
+   "BodyTemp",
+   "HeartRate"
+  ],
+  "danger_signs": [
+   "BS",
+   "BodyTemp"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 18,
+   "sbp": 136,
+   "dbp": 89,
+   "sugar_mgdl": 155,
+   "temp_c": 38.8,
+   "pulse": 83
+  },
+  "proba": [
+   0.00686212549758795,
+   0.19214560142462517,
+   0.8009922730777869
+  ],
+  "action": "refer",
+  "reasons": [
+   "BodyTemp",
+   "SystolicBP",
+   "HeartRate"
+  ],
+  "danger_signs": [
+   "BodyTemp"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 27,
+   "sbp": 150,
+   "dbp": 97,
+   "sugar_mgdl": 296,
+   "temp_c": 38.2,
+   "pulse": 74
+  },
+  "proba": [
+   9.470033272564239e-05,
+   0.019030947972938236,
+   0.9808743516943361
+  ],
+  "action": "refer",
+  "reasons": [
+   "BS",
+   "SystolicBP",
+   "BodyTemp"
+  ],
+  "danger_signs": [
+   "SystolicBP",
+   "DiastolicBP",
+   "BS",
+   "BodyTemp"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 40,
+   "sbp": 136,
+   "dbp": 57,
+   "sugar_mgdl": 128,
+   "temp_c": 35.5,
+   "pulse": 107
+  },
+  "proba": [
+   0.154292873608216,
+   0.7262164667194871,
+   0.11949065967229683
+  ],
+  "action": "recheck",
+  "reasons": [
+   "HeartRate",
+   "SystolicBP"
+  ],
+  "danger_signs": []
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 35,
+   "sbp": 148,
+   "dbp": 93,
+   "sugar_mgdl": 193,
+   "temp_c": 38.6,
+   "pulse": 101
+  },
+  "proba": [
+   0.0005986891198033402,
+   0.08321731769273621,
+   0.9161839931874604
+  ],
+  "action": "refer",
+  "reasons": [
+   "BodyTemp",
+   "SystolicBP",
+   "BS"
+  ],
+  "danger_signs": [
+   "SystolicBP",
+   "DiastolicBP",
+   "BodyTemp"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 30,
+   "sbp": 130,
+   "dbp": 75,
+   "sugar_mgdl": 217,
+   "temp_c": 36.1,
+   "pulse": 71
+  },
+  "proba": [
+   0.09291055761481791,
+   0.391568186223988,
+   0.5155212561611942
+  ],
+  "action": "refer",
+  "reasons": [
+   "BS",
+   "SystolicBP"
+  ],
+  "danger_signs": [
+   "BS"
+  ]
+ },
+ {
+  "demo": null,
+  "input": {
+   "age": 35,
+   "sbp": 94,
+   "dbp": 65,
+   "sugar_mgdl": 237,
+   "temp_c": 37.8,
+   "pulse": 86
+  },
+  "proba": [
+   0.02307932756957916,
+   0.22086209827602576,
+   0.756058574154395
+  ],
+  "action": "refer",
+  "reasons": [
+   "BS",
+   "BodyTemp",
+   "HeartRate"
+  ],
+  "danger_signs": [
+   "BS"
+  ]
+ }
+]

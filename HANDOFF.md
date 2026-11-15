@@ -6,9 +6,9 @@ Claude Code: update this at the **end of every session/phase**. Newest entry on 
 
 ## Current status
 
-- **Phase:** 3 done → next is Phase 4 (export + JS parity)
-- **Last updated:** Sun Nov 15, 20:15 WIB
-- **Next step:** `pipeline/07_export.py` → `web/model.json`, `web/results.json`, `web/test_cases.json`, `models/sigapbumil_lr.joblib`; then `tests/test_parity.mjs`.
+- **Phase:** 4 done → next is Phase 5 (web app + deploy)
+- **Last updated:** Sun Nov 15, 20:50 WIB
+- **Next step:** read `WEB-SPEC.md` in full, then `web/index.html`, `style.css`, `app.js` (imports `inference.js`), `sw.js`, `.github/workflows/pages.yml`.
 - **Blockers:** none. Repo: https://github.com/SycthePlays/SigapBumil (branch `main`). Pages URL (Phase 5): https://sycthePlays.github.io/SigapBumil/
 - **Commit rule:** end of every phase → show `git status` + summary + proposed message, wait for "ya"/"ok", then commit and push (`CLAUDE.md` §11).
 
@@ -70,6 +70,16 @@ Started ~6 h late. Where another doc still mentions these, this list wins:
 ---
 
 ## Log
+
+### Sun Nov 15, 20:50 — Phase 4 done (export + parity)
+- New: `pipeline/07_export.py`, `web/inference.js`, `tests/test_parity.mjs`; `run_all.py` now runs 07 and the Node parity test. Outputs: `web/model.json`, `web/results.json`, `web/test_cases.json` (30 cases: 3 demos, 9 fixed, 18 random), `web/img/` (4 plots), `models/sigapbumil_lr.joblib`.
+- **Model unchanged:** after a full `run_all.py` rebuild, `git status results data` showed no differences from the Phase 2+3 commit. `common.py` only gained `B1_HIGH_CUTOFFS` (same four numbers the rule already used).
+- **Parity:** JS vs scikit-learn on 30 cases, max probability difference 2.2e-16; action, top-3 reasons and danger signs all equal. `pytest -q` → 5 passed.
+- **Demo examples** (synthetic, in `model.json.examples`): routine `25, 110/70, 110 mg/dL, 36.7 °C, 72` → Rutin; borderline `37, 135/88, 150 mg/dL, 36.8 °C, 92` → **Rujuk** with no danger sign; high `38, 150/95, 250 mg/dL, 37.0 °C, 88` → Rujuk + 3 danger signs.
+- **Design choice:** model math is in `web/inference.js` (ES module) instead of inside `app.js`, so the parity test runs the real site code, not a copy. `WEB-SPEC.md` updated. Needs Node ≥ 22.7 for the test.
+- **Danger sign** added to `WEB-SPEC.md` §4.3: single-vital warning (SBP ≥ 140, DBP ≥ 90, ≥ 38 °C, ≥ 200 mg/dL), independent of the model. Boundary cases (exactly 140/90/200/38.0 and one step below) are in the parity test.
+- **For Phase 5:** the model refers easily by design (threshold 0.1964): e.g. age 35, 128/84, 130 mg/dL → Rujuk. In CV it referred 136 of 304. Say this in the UI/limitations. "Why?" is hidden for Rutin (top reason there is age, which confuses).
+- README: added "Honest notes" (forest stronger but not deployed; test evaluation ran twice, identical numbers).
 
 ### Sun Nov 15, 20:15 — Phase 2 + Phase 3 done
 - New: `pipeline/common.py`, `03_baselines.py`, `04_models.py`, `05_final_eval.py`, `06_experiments.py`, `run_all.py`. `python pipeline/run_all.py` rebuilds everything; `pytest -q` → 5 passed.

@@ -1,0 +1,162 @@
+{
+  "version": "1.0",
+  "trained_on": "UCI Maternal Health Risk (cleaned), train split, n=304",
+  "features": [
+    "Age",
+    "SystolicBP",
+    "DiastolicBP",
+    "BS",
+    "BodyTemp",
+    "HeartRate"
+  ],
+  "units": {
+    "BS": "mmol/L",
+    "BodyTemp": "F"
+  },
+  "scaler": {
+    "mean": [
+      29.157894736842106,
+      111.09539473684211,
+      75.4967105263158,
+      8.43967105263158,
+      98.76644736842105,
+      73.8157894736842
+    ],
+    "scale": [
+      13.708240540848477,
+      18.446422555805793,
+      13.825034109423791,
+      2.9429857327844076,
+      1.4440642608053078,
+      7.741651745277126
+    ]
+  },
+  "classes": [
+    "low",
+    "mid",
+    "high"
+  ],
+  "coef": [
+    [
+      0.008344215892135387,
+      -0.7667849463906302,
+      0.19689003016614268,
+      -0.9209249812097715,
+      -0.6982453079107508,
+      -0.20404204252998726
+    ],
+    [
+      0.10354261471963362,
+      0.32948206381369616,
+      -0.3432330048138382,
+      -0.06473250152632232,
+      0.13974072671011134,
+      0.020708583569347346
+    ],
+    [
+      -0.11188683061176931,
+      0.4373028825769349,
+      0.14634297464769566,
+      0.9856574827360934,
+      0.5585045812006396,
+      0.18333345896063963
+    ]
+  ],
+  "intercept": [
+    -0.0681673944113923,
+    0.2911787962931823,
+    -0.22301140188179075
+  ],
+  "thresholds": {
+    "t_refer": 0.1964,
+    "t_recheck": 0.5
+  },
+  "feature_labels": {
+    "Age": {
+      "id": "Usia",
+      "en": "Age"
+    },
+    "SystolicBP": {
+      "id": "Tekanan darah sistolik",
+      "en": "Systolic blood pressure"
+    },
+    "DiastolicBP": {
+      "id": "Tekanan darah diastolik",
+      "en": "Diastolic blood pressure"
+    },
+    "BS": {
+      "id": "Gula darah",
+      "en": "Blood sugar"
+    },
+    "BodyTemp": {
+      "id": "Suhu tubuh",
+      "en": "Body temperature"
+    },
+    "HeartRate": {
+      "id": "Nadi",
+      "en": "Pulse"
+    }
+  },
+  "danger_cutoffs": {
+    "SystolicBP": 140,
+    "DiastolicBP": 90,
+    "BS": 11.1,
+    "BodyTemp": 100.4
+  },
+  "examples": [
+    {
+      "id": "routine",
+      "input": {
+        "age": 25,
+        "sbp": 110,
+        "dbp": 70,
+        "sugar_mgdl": 110,
+        "temp_c": 36.7,
+        "pulse": 72
+      },
+      "expected_action": "routine"
+    },
+    {
+      "id": "borderline",
+      "input": {
+        "age": 37,
+        "sbp": 135,
+        "dbp": 88,
+        "sugar_mgdl": 150,
+        "temp_c": 36.8,
+        "pulse": 92
+      },
+      "expected_action": "refer"
+    },
+    {
+      "id": "high",
+      "input": {
+        "age": 38,
+        "sbp": 150,
+        "dbp": 95,
+        "sugar_mgdl": 250,
+        "temp_c": 37.0,
+        "pulse": 88
+      },
+      "expected_action": "refer"
+    }
+  ],
+  "metrics": {
+    "test_n_high": 20,
+    "test_high_recall": 1.0,
+    "test_high_fn": 0,
+    "test_high_fp": 8,
+    "test_high_recall_wilson95": [
+      0.8388698745050667,
+      1.0
+    ],
+    "cv_n_high": 81,
+    "cv_high_recall": 0.9012345679012346,
+    "cv_high_fn": 8,
+    "cv_high_fp": 63,
+    "cv_high_recall_wilson95": [
+      0.8170331024146836,
+      0.9491004924255834
+    ]
+  }
+}

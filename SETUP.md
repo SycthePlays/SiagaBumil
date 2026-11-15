@@ -15,7 +15,7 @@ VS Code + Claude Code (local)  ──push──►  GitHub (public repo)
 
 ## 1. Local machine
 
-Install: **Git**, **VS Code**, **Python 3.10+**, **Node.js** (for the JS parity test).
+Install: **Git**, **VS Code**, **Python 3.10+**, **Node.js 22.7+** (for the JS parity test).
 
 ```bash
 git clone https://github.com/SycthePlays/SigapBumil.git

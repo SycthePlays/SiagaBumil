@@ -52,15 +52,16 @@ def make_rf():
     return RandomForestClassifier(class_weight="balanced", random_state=42)
 
 
+# B1 "high" cutoffs in dataset units (BS mmol/L, BodyTemp F).
+# = 140/90 mmHg, about 200 mg/dL, 38 C. Also exported to the web app, which
+# shows a separate "danger sign" warning when any single vital passes one.
+B1_HIGH_CUTOFFS = {"SystolicBP": 140, "DiastolicBP": 90, "BS": 11.1, "BodyTemp": 100.4}
+
+
 def rule_b1(df: pd.DataFrame) -> np.ndarray:
     """B1: fixed single-number cutoffs, no learning (DESIGN.md section 4).
     Simplified general thresholds, NOT an official clinical guideline."""
-    high = (
-        (df["SystolicBP"] >= 140)
-        | (df["DiastolicBP"] >= 90)
-        | (df["BS"] >= 11.1)
-        | (df["BodyTemp"] >= 100.4)
-    )
+    high = np.any([df[f] >= cut for f, cut in B1_HIGH_CUTOFFS.items()], axis=0)
     mid = (
         (df["SystolicBP"] >= 130)
         | (df["DiastolicBP"] >= 80)
