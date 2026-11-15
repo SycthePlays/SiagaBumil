@@ -6,7 +6,7 @@
 VS Code + Claude Code (local)  ──push──►  GitHub (public repo)
                                              ├──► GitHub Pages   (live site — main plan)
                                              ├──► Google Colab   (walkthrough notebook — optional extra)
-                                             └──► Hugging Face   (Gradio Space — fallback only)
+                                             └──► Hugging Face   (Gradio Space — cut, not used)
 ```
 
 > **Public repo rule:** never put API keys, tokens or passwords in any file, notebook or commit. Use GitHub Secrets or the git password prompt only.
@@ -58,12 +58,12 @@ Why things "disappear" in Colab: the runtime is temporary — uploaded files are
 ```
 
 - The trained model is already in the repo (`web/model.json`, `models/sigapbumil_lr.joblib`) → load it, predict, show `results/`.
-- Save: **File → Save a copy in GitHub** → authorize → repo `sigapbumil`, branch `main`, path `notebooks/walkthrough.ipynb`, keep "Include a link to Colab" checked.
+- Save: **File → Save a copy in GitHub** → authorize → repo `SigapBumil`, branch `main`, path `notebooks/walkthrough.ipynb`, keep "Include a link to Colab" checked.
 - Run all cells **before** saving so outputs are visible. Then `git pull` locally.
 - Open later: Colab → File → Open notebook → GitHub tab → paste repo URL.
 - Don't push from inside Colab with a token; edit code locally.
 
-## 5. Hugging Face Space (fallback only — if Pages blocked by 21:00)
+## 5. Hugging Face Space — **cut** (not used; kept for reference)
 
 1. huggingface.co → New Space → SDK **Gradio** → Public → name `sigapbumil`.
 2. Settings → Access Tokens → new token, role **Write**.

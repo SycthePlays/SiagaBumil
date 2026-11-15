@@ -57,7 +57,7 @@ Project brief for Claude Code. **Read this file first, then `HANDOFF.md` (curren
 |---|---|---|
 | RQ1 | Does ML beat (a) "always low risk" and (b) a simple clinical-threshold rule at catching high-risk mothers? | Baseline comparison is mandatory |
 | RQ2 | How much do **duplicate rows** in the public dataset inflate reported accuracy? | Leakage catch = technical quality + honesty |
-| RQ3 | Does the frozen model hold up on a **different dataset** collected separately? | "Own data / new situation" |
+| RQ3 — **cut** (skipped for time) | Does the frozen model hold up on a **different dataset** collected separately? | "Own data / new situation" |
 | RQ4 | Does high-risk recall differ for mothers **<20, 20–35, >35**? | Track asks for equal performance across groups |
 | RQ5 | Which vitals drive each prediction, and where does the model fail? | Explainability + required failure analysis |
 
@@ -70,7 +70,7 @@ Project brief for Claude Code. **Read this file first, then `HANDOFF.md` (curren
 | Stage | Data | Model learns from it? |
 |---|---|---|
 | Training | UCI Maternal Health Risk, deduped, **80% train split** (CV + threshold tuning inside it) | **Yes** — the only training data |
-| Testing | UCI 20% held-out test (once) · Mendeley external dataset (once, if usable) · UCI raw-with-duplicates (leakage experiment only) | No |
+| Testing | UCI 20% held-out test (once) · Mendeley external dataset (**cut**) · UCI raw-with-duplicates (leakage experiment only) | No |
 | Detection (live app) | 6 vitals typed by the bidan, converted in the browser · synthetic demo examples | No — frozen model, nothing stored |
 
 ```
@@ -98,7 +98,7 @@ OUTPUT    action card + class probabilities + top reasons + disclaimer
 
 Full model spec: `DESIGN.md`. Data decisions: `DATA.md`. UI spec: `WEB-SPEC.md`.
 
-**Deployment:** static website in `web/` served by **GitHub Pages**. The trained model is exported to `web/model.json` (scaler + coefficients + thresholds) and **inference runs in the browser in plain JavaScript** — no server, no database, no network calls, works offline after first load. *(Fallback only if the web build fails: Gradio app on Hugging Face Spaces.)* No Vercel, no Supabase.
+**Deployment:** static website in `web/` served by **GitHub Pages**. The trained model is exported to `web/model.json` (scaler + coefficients + thresholds) and **inference runs in the browser in plain JavaScript** — no server, no database, no network calls, works offline after first load. *(Fallback if the web build fails: Gradio app on Hugging Face Spaces — **cut**.)* No Vercel, no Supabase.
 
 ---
 
@@ -113,7 +113,7 @@ sigapbumil/
 ├── DATA.md              # datasets, roles, licences, cleaning log
 ├── WEB-SPEC.md          # web app spec (UI, units, states, privacy)
 ├── HANDOFF.md           # session log: done / next / open issues / judge-ready explanations
-├── SETUP.md             # tooling: VS Code + Claude Code, GitHub, Pages, Colab, Hugging Face (fallback)
+├── SETUP.md             # tooling: VS Code + Claude Code, GitHub, Pages, Colab, Hugging Face (fallback — cut)
 ├── requirements.txt     # pinned versions
 ├── data/
 │   ├── raw/             # original files, untouched (UCI CSV committed with attribution)
@@ -126,9 +126,9 @@ sigapbumil/
 │   ├── 01_load_clean.py     # load, inspect, count + drop duplicates, sanity checks
 │   ├── 02_split.py          # stratified 80/20 split → data/processed (test locked)
 │   ├── 03_baselines.py      # B0 majority, B1 clinical rule (CV on train)
-│   ├── 04_models.py         # LR + tree model, 5-fold CV, threshold tuning
+│   ├── 04_models.py         # LR + tree model (grid search: cut), 5-fold CV, threshold tuning
 │   ├── 05_final_eval.py     # ONLY script that touches the test set; run once
-│   ├── 06_experiments.py    # duplicate-leakage test, age groups, external dataset
+│   ├── 06_experiments.py    # duplicate-leakage test, age groups, external dataset (cut)
 │   ├── 07_export.py         # write web/model.json + web/test_cases.json
 │   └── run_all.py
 ├── results/             # metrics *.json + plots *.png (all README numbers come from here)
@@ -218,7 +218,7 @@ python -m http.server -d web 8000   # preview site at http://localhost:8000
 ## 12. Definition of done
 
 - [ ] Pipeline runs end to end from a clean clone; tests pass.
-- [ ] `results/` contains: baseline vs model table, confusion matrices, threshold plot, duplicate-leakage comparison, age-group table, external-test result, failure cases.
+- [ ] `results/` contains: baseline vs model table, confusion matrices, threshold plot, duplicate-leakage comparison, age-group table, external-test result (**cut**), failure cases.
 - [ ] Web app live on GitHub Pages, works on a phone, offline after first load, disclaimer visible.
 - [ ] JS and Python give the same predictions on `test_cases.json`.
 - [ ] `notebooks/walkthrough.ipynb` runs from a fresh Colab runtime and is saved with outputs visible.

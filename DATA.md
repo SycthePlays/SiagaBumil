@@ -17,7 +17,7 @@ Features must be things a **bidan desa can measure in a village**: age, BP cuff,
 |---|---|---|
 | **Training** | UCI Maternal Health Risk, deduped, **80% train split**. CV, model choice and threshold tuning all happen inside it | **Yes — the only training data** |
 | **Testing** | UCI 20% held-out test (run once) | No |
-| | Mendeley Mojumdar et al. 2024 — external check, shared features only, high vs not-high (run once, if usable) | No |
+| | Mendeley Mojumdar et al. 2024 — external check, shared features only, high vs not-high (**cut**, not run) | No |
 | | UCI raw with duplicates — leakage experiment E1 only | No |
 | **Detection (live app)** | 6 vitals typed by the bidan (mg/dL, °C → converted in browser) | No — frozen model, inputs never stored |
 | | Synthetic demo examples, labelled "Contoh / Example" | No — demo only, never in metrics |
@@ -35,7 +35,7 @@ Features must be things a **bidan desa can measure in a village**: age, BP cuff,
 | Role | Dataset | Link | Licence | Status |
 |---|---|---|---|---|
 | **Main train + test** | UCI Maternal Health Risk (Ahmed, 2020), id 863 — rural Bangladesh hospitals/clinics via IoT risk monitoring; Age, SystolicBP, DiastolicBP, BS (mmol/L), BodyTemp (°F), HeartRate, RiskLevel (low/mid/high) | https://archive.ics.uci.edu/dataset/863/maternal+health+risk | CC BY 4.0 | to load |
-| **External test (E3)** | Mendeley "Maternal Health Risk Assessment Dataset" (Mojumdar et al., 2024) — rural Bangladesh; Age, SBP, DBP, BS, Body Temp, BMI, Previous Complications, Pre-existing Diabetes, Gestational Diabetes, Mental Health, Heart Rate, Risk Level (High/Low) | https://data.mendeley.com/datasets/p5w98dvbbk/1 | check on page | to check |
+| **External test (E3) — cut, not used** | Mendeley "Maternal Health Risk Assessment Dataset" (Mojumdar et al., 2024) — rural Bangladesh; Age, SBP, DBP, BS, Body Temp, BMI, Previous Complications, Pre-existing Diabetes, Gestational Diabetes, Mental Health, Heart Rate, Risk Level (High/Low) | https://data.mendeley.com/datasets/p5w98dvbbk/1 | check on page | to check |
 | Optional v2 only | Mendeley "Maternal Health and High-Risk Pregnancy Dataset" (Chayan, 2024) — adds gravida, weight/height, gestational age, anemia, fetal heart rate; high-risk vs not | https://data.mendeley.com/datasets/8k9pvpmykk/1 | check on page | skip unless time |
 | Rule baseline cutoffs | general clinical thresholds (BP ≥140/90 etc.) — see `DESIGN.md` §4 | cite in README | — | — |
 | Problem context | Indonesia MMR 189 / 100,000 live births (2020 Census, UNFPA Indonesia) | https://indonesia.unfpa.org/en/node/164180 | — | — |

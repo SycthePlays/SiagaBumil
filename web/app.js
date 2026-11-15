@@ -41,7 +41,7 @@ const STR = {
     whyTitle: "Mengapa?",
     noFactors: "Tidak ada faktor risiko menonjol",
     above: "di atas rata-rata data latih", below: "di bawah rata-rata data latih",
-    outOfRange: "di luar rentang umum",
+    outOfRange: "di luar rentang umum", rangeNote: "Rentang umum, bukan diagnosis",
     dangerTitle: "Tanda bahaya",
     considerReferral: "Pertimbangkan rujukan.",
     dangerNote: "Peringatan ini memakai batas klinis tetap, terpisah dari model.",
@@ -117,7 +117,7 @@ const STR = {
     whyTitle: "Why?",
     noFactors: "No strong risk factors",
     above: "above the training average", below: "below the training average",
-    outOfRange: "outside common range",
+    outOfRange: "outside common range", rangeNote: "Common range, not a diagnosis",
     dangerTitle: "Danger sign",
     considerReferral: "Consider referral.",
     dangerNote: "This warning uses fixed clinical cutoffs, separate from the model.",
@@ -302,7 +302,7 @@ function summaryHtml() {
   ];
   const dot = `<span class="dot" role="img" aria-label="${S.outOfRange}"></span>`;
   const legend = items.some(([, flagged]) => flagged)
-    ? `<p class="legend"><span class="dot" aria-hidden="true"></span> ${S.outOfRange}</p>` : "";
+    ? `<p class="legend"><span class="dot" aria-hidden="true"></span> ${S.outOfRange}. ${S.rangeNote}.</p>` : "";
   return `<ul class="summary">${items.map(([text, flagged]) => `<li>${text}${flagged ? dot : ""}</li>`).join("")}</ul>${legend}`;
 }
 

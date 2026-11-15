@@ -58,7 +58,7 @@ See `SETUP.md` for step-by-step tool setup.
 ## Phase 5 — Web app + deploy · Sun 21:30–00:30
 - [x] `web/index.html`, `style.css`, `app.js` per `WEB-SPEC.md` (no dark mode); `sw.js` for offline
 - [x] Bilingual labels, units, validation, examples, result card, reasons, How-it-works, limitations
-- [x] `.github/workflows/pages.yml` written — [ ] push, then set Pages source = GitHub Actions (**developer**)
+- [x] `.github/workflows/pages.yml` written and pushed — [ ] set Pages source = GitHub Actions (**developer**)
 - [x] Checked locally in Chrome at 360 px and 1280 px, incl. offline reload — [ ] real phone + incognito on the public URL + Lighthouse
 - **No fallback host.** If Pages is blocked, the repo + README + video are still a complete submission (the website is not required).
 - **Done when:** a stranger can open the public URL and get a result.
@@ -66,9 +66,9 @@ See `SETUP.md` for step-by-step tool setup.
 ## Sleep · 00:30–06:00
 
 ## Phase 6 — Write-up + Colab walkthrough · Mon 06:00–07:30
-- [ ] Fill `README.md` (hackathon template) from `results/summary.json`; external dataset line → "skipped for time"
-- [ ] Disclaimer, limitations, sources (datasets, libraries, Claude, Claude Code), links (live site, video, Colab)
-- [ ] `notebooks/walkthrough.ipynb` per `DESIGN.md` §10 → run all in a **fresh** Colab runtime → File → Save a copy in GitHub (outputs visible) → `git pull` locally. *First thing to cut if Monday runs late — Colab is optional.*
+- [x] Fill `README.md` (hackathon template) from `results/summary.json`; external dataset line → "skipped for time"
+- [x] Disclaimer, limitations, sources (datasets, libraries, Claude, Claude Code), links (live site, Colab) — [ ] video link, Buku KIA line (**developer**)
+- [x] `notebooks/walkthrough.ipynb` per `DESIGN.md` §10 written — [ ] (**developer**) run all in a **fresh** Colab runtime → File → Save a copy in GitHub (outputs visible) → `git pull` locally. *First thing to cut if Monday runs late — Colab is optional.*
 - **Done when:** a judge understands the project in 2 minutes.
 
 ## Phase 7 — Demo video · Mon 07:30–09:00

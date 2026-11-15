@@ -37,7 +37,7 @@ Static site in `web/`, deployed by GitHub Pages. Plain HTML/CSS/JS, no framework
 | `--recheck` / `--recheck-bg` | `#B45309` / `#FFFBEB` | Cek ulang |
 | `--routine` / `--routine-bg` | `#15803D` / `#F0FDF4` | Rutin |
 
-Dark mode (`@media (prefers-color-scheme: dark)`) is **optional** — only if time remains Monday morning.
+Dark mode (`@media (prefers-color-scheme: dark)`) was optional — **cut**.
 
 **Typography:** system stack (`system-ui, -apple-system, "Segoe UI", Roboto, sans-serif`).
 - Body 16 px / 1.5. Labels 14 px muted. Section titles 20 px semibold.
@@ -91,7 +91,7 @@ States:
    - One-line plain explanation under the banner (e.g. *"Kombinasi tekanan darah dan gula darah menunjukkan risiko tinggi."*).
    - **Probability bars**: three horizontal bars Low / Mid / High with % labels (bars animate width on render; respect `prefers-reduced-motion`).
    - **"Mengapa? / Why?"**: top 3 reasons as a list, each with the patient's value and a small arrow ↑ (e.g. *"Tekanan darah sistolik 150 mmHg ↑"*).
-   - Inputs outside common ranges highlighted with a small amber dot in the summary.
+   - Inputs outside common ranges highlighted with a small amber dot in the summary, with the label *"Rentang umum, bukan diagnosis / Common range, not a diagnosis"*.
    - Disclaimer line (muted, 13 px) — always visible on the card.
    - **"Tanda bahaya / Danger sign" warning** (added Phase 4) — a separate box above the action banner, shown when **any single vital** passes a fixed cutoff, **independent of the model**:
      - Systolic BP ≥ 140 mmHg · Diastolic BP ≥ 90 mmHg · Temperature ≥ 38 °C · Blood sugar ≥ 200 mg/dL

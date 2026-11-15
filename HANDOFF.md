@@ -6,9 +6,9 @@ Claude Code: update this at the **end of every session/phase**. Newest entry on 
 
 ## Current status
 
-- **Phase:** 5 built and checked locally → waiting for developer's ok to commit + push; then enable Pages and test on a real phone
-- **Last updated:** Sun Nov 15, 21:25 WIB
-- **Next step:** after push: repo Settings → Pages → Source = **GitHub Actions**, open the public URL in incognito and on a phone, run Lighthouse. Then Phase 6 (README from `results/summary.json`).
+- **Phase:** 6 done (README, Colab notebook, docs consistency) → waiting for developer's ok to commit + push
+- **Last updated:** Sun Nov 15, 21:40 WIB
+- **Next step (developer):** (1) confirm Pages source = GitHub Actions and open the live URL in incognito + on a phone; (2) open `notebooks/walkthrough.ipynb` in Colab, Run all, File → Save a copy in GitHub (outputs visible), `git pull`; (3) record the ≤ 2 min video and put its link in `README.md`; (4) submit (write-up = `WRITEUP.md`, one page; `README.md` is the longer version).
 - **Blockers:** none. Repo: https://github.com/SycthePlays/SigapBumil (branch `main`). Pages URL (Phase 5): https://sycthePlays.github.io/SigapBumil/
 - **Commit rule:** end of every phase → show `git status` + summary + proposed message, wait for "ya"/"ok", then commit and push (`CLAUDE.md` §11).
 
@@ -31,9 +31,12 @@ Started ~6 h late. Where another doc still mentions these, this list wins:
 
 - [x] Git/GitHub connected; Phase 0+1 committed on top of the existing upload history (no force push).
 - [x] Phase 3 additions (developer review): bootstrap 95% CI + Wilson interval; CV beside test in `summary.json`; "conflicting duplicates removed" in limitations.
-- [ ] **Deploy M1 (LR) vs M2 (forest)** — M1 kept by default; M2 was stronger in CV. Developer to confirm (see log 20:15).
+- [x] **Deploy M1 (LR) vs M2 (forest)** — M1 deployed; M2 was stronger in CV and the README says so (developer asked for it to be written as "stronger but not deployed").
+- [x] **Buku KIA alignment of the danger signs** — wording supplied by the developer: fever matches "demam tinggi"; BP and blood sugar cutoffs follow WHO because the Buku KIA list is symptom-based.
+- [x] **Cutoff sources for B1** — two WHO documents (2011 pre-eclampsia recommendations; 2013 hyperglycaemia in pregnancy) with URLs supplied and verified by the developer.
+- [ ] Not checked yet: real phone, live URL in incognito, Lighthouse accessibility score, notebook in a real Colab runtime (its code cells were run locally only).
 - [x] Engineered features (PulsePressure, MAP) — dropped, no gain in CV. `web/model.json` will list 6 features.
-- [ ] README "What we added" item (5) "test on a separately collected dataset" must be removed in Phase 6 (E3 cut)
+- [x] README "What we added" item (5) "test on a separately collected dataset" removed (E3 cut); README says it was planned and skipped for time
 - [x] ~~External dataset usable?~~ — cut
 
 ---
@@ -64,16 +67,41 @@ Started ~6 h late. Where another doc still mentions these, this list wins:
 - **Age groups:** on test, recall is 100% in all three groups, but the groups hold only 4, 10 and 6 high-risk mothers. In CV: <20 → 0.94, 20–35 → 0.91, >35 → 0.87 (4 of 30 missed). A small gap for older mothers, too few cases to call it real.
 - **Where it fails:** (1) high-risk mothers whose six vitals all look normal, e.g. age 34, BP 110/70, sugar 7.0, 98 °F: the rule misses her too, so the label depends on something outside our six numbers or is noise. (2) One abnormal number among normal ones, e.g. age 40, BP 120/**95**: the rule catches it, our model does not, because a linear model averages the normal values against the bad one. (3) False alarms are mostly fever (101–103 °F) cases labelled low or mid.
 
+### Phase 4 — Export + parity
+- **The model is 33 numbers.** `web/model.json` holds an average and a spread for each of the six vitals (12 numbers), 18 weights and 3 intercepts. Anyone can read them; there is no hidden black box.
+- **The phone does the same arithmetic as Python.** `web/inference.js` standardizes the vitals, multiplies by the weights, and applies softmax. `tests/test_parity.mjs` runs 30 inputs through it and compares with scikit-learn: the largest difference is 2.2e-16, and the action, reasons and danger signs are identical.
+- **The 30 test inputs include the edges:** exactly 140/90 mmHg, 200 mg/dL and 38.0 °C, and one step below each, so the danger-sign cutoffs behave the same in both languages.
+- **Nothing was tuned in this phase.** The export script reads the features and thresholds chosen in cross-validation. After a full rebuild, the results files were byte-for-byte unchanged.
+- **Why a danger sign on top of the model:** in cross-validation a mother with BP 120/95 was sent to "routine" because her other values were normal. A fixed single-number warning makes sure that cannot be hidden.
+
 ### Phase 5 — Web app
 - **The website does no AI of its own.** `app.js` is only the form and the drawing. Every probability comes from `inference.js`, the same file the parity test checks against Python, so the phone gives the same answer as scikit-learn.
 - **Nothing leaves the phone.** No server, no cookies, no storage. The only requests are the site's own files; after the first visit a service worker serves them from a local copy, so it opens with no internet.
 - **Two separate signals on the result card.** The action banner is the model. The red "Tanda bahaya" box is a plain rule (one vital past a fixed cutoff). It exists because the linear model can let normal values hide one very bad number.
 - **The Borderline example is the story:** 135/88, sugar 150, pulse 92, age 37. No single number passes a cutoff (no danger box), but the model says Rujuk sekarang at 48% high risk.
 - **Every number in "Cara kerja" is read from `results.json`** at load time (table, leakage, age groups, the 84% lower bound). None are typed into the page.
+- **The amber dot is not the model.** It marks a value outside a common range and is labelled "Rentang umum, bukan diagnosis".
+
+### Phase 6 — Write-up + notebook
+- **Lead with the honest number.** Expect about 90% of high-risk mothers caught (cross-validation, 81 cases). The test set caught 20 of 20, but 20 cases only supports "somewhere between 84% and 100%".
+- **The gain over the rule is modest and we say so:** same 90% recall, 63 false alarms instead of 72. A random forest gets 44 and is not deployed, because it cannot give per-patient reasons from coefficients and is harder to port exactly.
+- **Our own contributions are the checks, not the classifier:** duplicate leakage (79% of raw test rows are also in train; forest 0.87 → 0.80), label noise (35 conflicting groups), the rule comparison, the age groups, and the bidan setting.
+- **The tool refers often on purpose:** 136 of 304 in cross-validation. A false alarm is a trip to the puskesmas; a miss can cost a life.
+- **What is not done:** no test with real bidan, no Indonesian data, no real outcomes. Those are the next steps, in that order.
+- **The notebook trains nothing.** It loads the 33 numbers, predicts the three examples, re-checks the 30 parity cases and shows the saved results, so a judge sees it working in one click.
 
 ---
 
 ## Log
+
+### Sun Nov 15, 21:40 — Phase 6 done (write-up, notebook, docs)
+- Phase 5 committed and pushed (`a7369b0`).
+- `README.md` rewritten to the hackathon template. Every number matches `results/summary.json` (the results table was compared with one printed from the file). Placeholder left on purpose: demo video link. B1 cutoff sources (two WHO documents with URLs) and the Buku KIA sentence were supplied by the developer.
+- `WRITEUP.md`: strict one-page version of the README (same numbers), linked at the top of the README.
+- `notebooks/walkthrough.ipynb` written without outputs. Its code cells were run locally (Colab-only `!`/`%` lines skipped): 3 examples match, 30 parity cases differ by at most 2.2e-16, tables and plots load. **Not yet run in Colab.**
+- Web: amber dot label "Rentang umum, bukan diagnosis / Common range, not a diagnosis"; live URL in the footer.
+- Docs: E3, grid search, Hugging Face and dark mode marked "cut" in `CLAUDE.md`, `DESIGN.md`, `DATA.md`, `WEB-SPEC.md`, `SETUP.md` (nothing deleted).
+- Model, thresholds and metrics untouched: `results/`, `data/`, `models/`, `web/model.json` have no changes.
 
 ### Sun Nov 15, 21:25 — Phase 5 built (web app), not yet deployed
 - Phase 4 committed and pushed (`0dab03e`). Follow-ups from the developer applied: "Tidak ada faktor risiko menonjol / No strong risk factors" replaces "Why?" on Rutin; README limitation "refers often (136 of 304 in CV)"; SETUP says Node 22.7+.

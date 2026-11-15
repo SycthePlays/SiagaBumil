@@ -8,7 +8,7 @@ Decisions for the SigapBumil model. If a decision changes, update this file and 
 
 - **Input:** one antenatal visit = 6 vitals: `Age` (years), `SystolicBP` (mmHg), `DiastolicBP` (mmHg), `BS` (blood sugar, mmol/L), `BodyTemp` (°F), `HeartRate` (bpm).
 - **Target:** `RiskLevel` ∈ {low risk, mid risk, high risk} → encoded `low`, `mid`, `high`.
-- **Type:** 3-class tabular classification. A binary view (**high vs not-high**) is used for the triage decision and for the external dataset.
+- **Type:** 3-class tabular classification. A binary view (**high vs not-high**) is used for the triage decision and for the external dataset (external dataset: **cut**).
 - **Priority metric:** **high-risk recall** (catch high-risk mothers), subject to keeping false alarms reasonable.
 
 ## 2. Features
@@ -50,7 +50,7 @@ Check whether engineered features help in CV. Keep them only if they do; record 
 | ID | Model | Settings | Role |
 |---|---|---|---|
 | M1 | Logistic Regression (multinomial) | `StandardScaler` → `LogisticRegression(class_weight="balanced", max_iter=1000)` | **deployed model** — interpretable, exact JS port |
-| M2 | Tree ensemble | `RandomForestClassifier(class_weight="balanced")` or `HistGradientBoostingClassifier` — small grid only | comparison: can a non-linear model find more? |
+| M2 | Tree ensemble | `RandomForestClassifier(class_weight="balanced")` or `HistGradientBoostingClassifier` — small grid only (**grid search cut**: one default random forest, `random_state=42`) | comparison: can a non-linear model find more? |
 
 - Model selection: **5-fold stratified CV on the training set**, out-of-fold predictions.
 - **Deploy M1** unless M2 beats it by > 5 percentage points of high-risk recall at a similar false-alarm count. If so, record the decision; export M2 with `m2cgen` to JS and use rule-based reasons. Default plan: **deploy M1**.
@@ -90,7 +90,7 @@ For the deployed LR, per input:
 **Experiments (`06_experiments.py`):**
 - **E1 duplicate leakage:** same M1 pipeline, split *before* vs *after* dedupe → compare test accuracy. Expected: raw split looks better because duplicates sit on both sides.
 - **E2 age groups:** high-risk recall and n per group (<20, 20–35, >35). Flag small n honestly.
-- **E3 external dataset:** freeze M1, apply to the external dataset (shared features only), evaluate as high vs not-high. See `DATA.md` for mapping and units. Skip and document if the dataset is unusable.
+- **E3 external dataset (cut, skipped for time):** freeze M1, apply to the external dataset (shared features only), evaluate as high vs not-high. See `DATA.md` for mapping and units. Skip and document if the dataset is unusable.
 - **E4 failure cases:** 3–5 test-set errors (prioritise missed high-risk), with vitals, prediction, truth, and a short hypothesis why.
 
 Write a machine-readable summary to `results/summary.json` (README pulls numbers from here).
