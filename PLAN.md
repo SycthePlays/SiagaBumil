@@ -30,21 +30,21 @@ See `SETUP.md` for step-by-step tool setup.
 - [x] `tests/test_no_leak.py`, `tests/test_units.py` — 5 passed
 - **Done when:** clean train/test files exist, cleaning log filled, tests pass.
 
-## Phase 2 — Baselines + models · Sun 18:30–19:45
-- [ ] `03_baselines.py`: B0 majority, B1 clinical rule (CV on train)
-- [ ] `04_models.py`: M1 LR, M2 random forest (defaults, no grid); 5-fold CV; out-of-fold predictions
-- [ ] Threshold tuning for high-risk recall ≥ 0.90 → `results/threshold_curve.png`
-- [ ] CV comparison table → `results/cv_comparison.json`
+## Phase 2 — Baselines + models · Sun 18:30–19:45 ✅
+- [x] `03_baselines.py`: B0 majority, B1 clinical rule (CV on train)
+- [x] `04_models.py`: M1 LR, M2 random forest (defaults, no grid); 5-fold CV; out-of-fold predictions
+- [x] Threshold tuning for high-risk recall ≥ 0.90 → `results/threshold_curve.png`
+- [x] CV comparison table → `results/cv_comparison.json`
 - **Done when:** one table compares B0, B1, M1, M2 on CV (high recall, FN, FP, macro-F1).
 
-## Phase 3 — Own contribution + final eval · Sun 19:45–21:00
-- [ ] `05_final_eval.py`: run **once** on test → `results/test_metrics.json`, confusion matrices
-- [ ] **Bootstrap 95% CI for high-risk recall** on the test set (only 20 high-risk rows → one miss = 5 points)
-- [ ] **Show CV results next to test results** in every results table (`summary.json`, README, web)
-- [ ] Limitations (README + web): add **"conflicting duplicates removed → remaining data is cleaner than real life, results may be slightly optimistic"**
-- [ ] `06_experiments.py`: E1 duplicate leakage, E2 age groups, E4 failure cases (~~E3 external~~ cut)
-- [ ] `results/summary.json`
-- [ ] HANDOFF.md: "How to explain to judges" bullets for every result
+## Phase 3 — Own contribution + final eval · Sun 19:45–20:15 ✅
+- [x] `05_final_eval.py`: run **once** on test → `results/test_metrics.json`, confusion matrices
+- [x] **Bootstrap 95% CI for high-risk recall** on the test set (plus Wilson interval, which stays honest at 20/20)
+- [x] **Show CV results next to test results** — done in `summary.json`; README + web follow in Phases 5–6
+- [x] Limitations: "conflicting duplicates removed" in `DESIGN.md` §11 and `README.md`; web follows in Phase 5
+- [x] `06_experiments.py`: E1 duplicate leakage, E2 age groups, E4 failure cases (~~E3 external~~ cut)
+- [x] `results/summary.json`
+- [x] HANDOFF.md: "How to explain to judges" bullets for every result
 - **Done when:** all results files exist and are frozen.
 
 ## Phase 4 — Export + parity · Sun 21:00–21:30

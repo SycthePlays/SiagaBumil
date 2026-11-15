@@ -22,6 +22,10 @@ Decisions for the SigapBumil model. If a decision changes, update this file and 
 
 Check whether engineered features help in CV. Keep them only if they do; record the result here.
 
+**Result (Phase 2, CV on train):** not kept. At ≥ 0.90 high-risk recall the 6 raw vitals gave 63 false alarms, raw + PulsePressure + MAP gave 65. Both are linear combinations of SBP and DBP, so a linear model gains nothing. **The deployed model uses the 6 raw vitals only**; `model.json.features` lists 6, and the web app's `addFeatures()` step has nothing to add.
+
+**Deploy decision (Phase 2, CV on train):** M2 (default random forest) beat M1 in CV (44 vs 63 false alarms at 0.90 recall), which triggers the §5 rule. M1 is still deployed for explainability, an exact browser port and no extra dependency; the write-up states that the forest scored better. `t_refer = 0.1964`, `t_recheck = 0.5`.
+
 ## 3. Preprocessing
 
 1. Load UCI Maternal Health Risk (`fetch_ucirepo(id=863)`); keep a raw copy in `data/raw/`.

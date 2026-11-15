@@ -6,9 +6,9 @@ Claude Code: update this at the **end of every session/phase**. Newest entry on 
 
 ## Current status
 
-- **Phase:** 1 done → next is Phase 2 (baselines + models)
-- **Last updated:** Sun Nov 15, 18:30 WIB
-- **Next step:** `pipeline/03_baselines.py` (B0, B1 on train CV), then `04_models.py` (LR + default random forest, 5-fold CV, threshold tuning).
+- **Phase:** 3 done → next is Phase 4 (export + JS parity)
+- **Last updated:** Sun Nov 15, 20:15 WIB
+- **Next step:** `pipeline/07_export.py` → `web/model.json`, `web/results.json`, `web/test_cases.json`, `models/sigapbumil_lr.joblib`; then `tests/test_parity.mjs`.
 - **Blockers:** none. Repo: https://github.com/SycthePlays/SigapBumil (branch `main`). Pages URL (Phase 5): https://sycthePlays.github.io/SigapBumil/
 - **Commit rule:** end of every phase → show `git status` + summary + proposed message, wait for "ya"/"ok", then commit and push (`CLAUDE.md` §11).
 
@@ -30,9 +30,9 @@ Started ~6 h late. Where another doc still mentions these, this list wins:
 ## Open issues / decisions pending
 
 - [x] Git/GitHub connected; Phase 0+1 committed on top of the existing upload history (no force push).
-- [ ] Phase 3 additions (developer review): bootstrap 95% CI for high-risk recall; CV results beside test results; "conflicting duplicates removed" in limitations (already added to `DESIGN.md` §11 and `README.md`).
-- [ ] Deploy M1 (LR) vs M2 (tree) — decide after Phase 2 CV (`DESIGN.md` §5)
-- [ ] Keep engineered features (PulsePressure, MAP)? — decide from CV
+- [x] Phase 3 additions (developer review): bootstrap 95% CI + Wilson interval; CV beside test in `summary.json`; "conflicting duplicates removed" in limitations.
+- [ ] **Deploy M1 (LR) vs M2 (forest)** — M1 kept by default; M2 was stronger in CV. Developer to confirm (see log 20:15).
+- [x] Engineered features (PulsePressure, MAP) — dropped, no gain in CV. `web/model.json` will list 6 features.
 - [ ] README "What we added" item (5) "test on a separately collected dataset" must be removed in Phase 6 (E3 cut)
 - [x] ~~External dataset usable?~~ — cut
 
@@ -49,11 +49,20 @@ Started ~6 h late. Where another doc still mentions these, this list wins:
 - **What is left: 380 rows** (203 low, 76 mid, 101 high) → 304 train / 76 test, same class mix in both. The test set is locked until the final evaluation.
 - **Be honest about size:** the test set has only **20 high-risk mothers**, so one missed case moves recall by 5 points. Small numbers → wide uncertainty.
 
-### Phase 2 — Baselines + models
-- 
+### Phase 2 — Baselines + models (cross-validation on 304 training rows, 81 high-risk)
+- **"Always low risk" (B0) is 53% accurate and catches 0 of 81 high-risk mothers.** That is why we do not judge by accuracy.
+- **The fixed clinical rule (B1) is a strong baseline:** it catches 73 of 81 (90%) but raises 72 false alarms.
+- **Logistic regression answering low/mid/high directly only catches 59%.** So we do not use its top answer; we refer whenever P(high) ≥ 0.1964, the highest cutoff that still catches 90% in CV. At that point it raises 63 false alarms.
+- **Honest comparison at the same 90% recall: rule 72 false alarms, our model 63, random forest 44.** Our deployed model beats the rule only modestly. The random forest is clearly better.
+- **We still deploy logistic regression** because every result can be explained ("systolic BP raised the score") and the exact same math runs in the browser offline. This choice was made from CV, before the test set was opened, and we say openly that the forest scored better.
+- **Extra features (pulse pressure, MAP) did not help** (65 vs 63 false alarms), so we dropped them. They are just sums of systolic and diastolic, which a linear model can already build itself.
 
-### Phase 3 — Results + experiments
-- 
+### Phase 3 — Results + experiments (test set: 76 rows, 20 high-risk, opened once)
+- **Test result:** SigapBumil referred **20 of 20** high-risk mothers with **8 false alarms**; the rule referred 17 of 20 with 14 false alarms. No high-risk mother was sent to "routine".
+- **20 of 20 is not "100% recall".** With only 20 cases the honest range is about **84%–100%** (Wilson interval). Cross-validation on 81 cases says about 90%. Quote the CV number as the expectation and the test number as "consistent with it". The test set turned out easier than CV.
+- **Duplicate leakage (our own question):** in the raw file, **160 of 203 test rows (79%)** have vitals that also sit in the training part. The random forest looks like **0.87** accuracy on the raw file but **0.80** after cleaning (CV: 0.85 → 0.75). Logistic regression is *not* inflated (0.60 → 0.71) because it cannot memorise rows. So high scores reported on this dataset with tree models are partly memory.
+- **Age groups:** on test, recall is 100% in all three groups, but the groups hold only 4, 10 and 6 high-risk mothers. In CV: <20 → 0.94, 20–35 → 0.91, >35 → 0.87 (4 of 30 missed). A small gap for older mothers, too few cases to call it real.
+- **Where it fails:** (1) high-risk mothers whose six vitals all look normal, e.g. age 34, BP 110/70, sugar 7.0, 98 °F: the rule misses her too, so the label depends on something outside our six numbers or is noise. (2) One abnormal number among normal ones, e.g. age 40, BP 120/**95**: the rule catches it, our model does not, because a linear model averages the normal values against the bad one. (3) False alarms are mostly fever (101–103 °F) cases labelled low or mid.
 
 ### Phase 5 — Web app
 - 
@@ -61,6 +70,15 @@ Started ~6 h late. Where another doc still mentions these, this list wins:
 ---
 
 ## Log
+
+### Sun Nov 15, 20:15 — Phase 2 + Phase 3 done
+- New: `pipeline/common.py`, `03_baselines.py`, `04_models.py`, `05_final_eval.py`, `06_experiments.py`, `run_all.py`. `python pipeline/run_all.py` rebuilds everything; `pytest -q` → 5 passed.
+- Results: `results/summary.json` (CV beside test for every approach), `cv_comparison.json`, `test_metrics.json`, `experiments.json`, `threshold_curve.png`, `coefficients.png`, `confusion_{b1,m1,m2,m1_triage}.png`, `leakage.png`.
+- **Decisions (all from CV, before the test set was opened):** features = 6 raw vitals (engineered dropped); `t_refer = 0.1964`, `t_recheck = 0.5`; deploy M1.
+- **Open decision for the developer:** DESIGN.md §5 says switch to M2 if it beats M1 by > 5 points recall at similar false alarms. In CV it does (0.753 vs 0.593 as a plain classifier; 44 vs 63 false alarms at 90% recall). Kept M1 for explainability, exact browser port, no new dependency, and time. Switching to M2 means exporting 100 trees to JSON and giving up coefficient-based reasons.
+- **Test set honesty:** `05_final_eval.py` ran twice. Second run was a clean rebuild after adding a Wilson interval (reporting only). Features and thresholds were not changed between runs; numbers are identical.
+- **scikit-learn pinned to 1.8.0** (was 1.9.1): Windows Application Control on the dev laptop blocked two 1.9.1 binaries. Policy was not changed or bypassed.
+- Bootstrap 95% CI is saved (`high_recall_ci95`) but collapses to [1.00, 1.00] when every case is caught, so the write-up should quote the Wilson interval (`high_recall_wilson95`).
 
 ### Sun Nov 15, 18:30 — Phase 0 + Phase 1 done
 - Scope cuts applied (table above); `PLAN.md` re-timed from the real 18:00 start.

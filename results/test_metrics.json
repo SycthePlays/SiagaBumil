@@ -1,0 +1,174 @@
+{
+  "note": "Held-out test set, used once. Thresholds and features come from CV.",
+  "n_test": 76,
+  "features": [
+    "Age",
+    "SystolicBP",
+    "DiastolicBP",
+    "BS",
+    "BodyTemp",
+    "HeartRate"
+  ],
+  "thresholds": {
+    "t_refer": 0.1964,
+    "t_recheck": 0.5,
+    "target_recall": 0.9
+  },
+  "m2_t_refer": 0.13,
+  "rows": {
+    "B0_majority": {
+      "n": 76,
+      "n_high": 20,
+      "high_recall": 0.0,
+      "high_recall_wilson95": [
+        0.0,
+        0.16113012549493322
+      ],
+      "high_fn": 20,
+      "high_fp": 0,
+      "accuracy": 0.5394736842105263,
+      "macro_f1": 0.2336182336182336,
+      "recall": {
+        "low": 1.0,
+        "mid": 0.0,
+        "high": 0.0
+      },
+      "precision": {
+        "low": 0.5394736842105263,
+        "mid": 0.0,
+        "high": 0.0
+      },
+      "high_recall_ci95": [
+        0.0,
+        0.0
+      ]
+    },
+    "B1_clinical_rule": {
+      "n": 76,
+      "n_high": 20,
+      "high_recall": 0.85,
+      "high_recall_wilson95": [
+        0.6395767041130426,
+        0.9476322080405041
+      ],
+      "high_fn": 3,
+      "high_fp": 14,
+      "accuracy": 0.631578947368421,
+      "macro_f1": 0.59993961352657,
+      "recall": {
+        "low": 0.5853658536585366,
+        "mid": 0.4666666666666667,
+        "high": 0.85
+      },
+      "precision": {
+        "low": 0.8571428571428571,
+        "mid": 0.4117647058823529,
+        "high": 0.5483870967741935
+      },
+      "high_recall_ci95": [
+        0.6666666666666666,
+        1.0
+      ]
+    },
+    "M1_logreg": {
+      "n": 76,
+      "n_high": 20,
+      "high_recall": 0.75,
+      "high_recall_wilson95": [
+        0.5312949900419365,
+        0.888139947210597
+      ],
+      "high_fn": 5,
+      "high_fp": 3,
+      "accuracy": 0.7105263157894737,
+      "macro_f1": 0.6308735124524598,
+      "recall": {
+        "low": 0.8536585365853658,
+        "mid": 0.26666666666666666,
+        "high": 0.75
+      },
+      "precision": {
+        "low": 0.7446808510638298,
+        "mid": 0.36363636363636365,
+        "high": 0.8333333333333334
+      },
+      "high_recall_ci95": [
+        0.5294117647058824,
+        0.9334374999999995
+      ]
+    },
+    "M1_logreg_triage": {
+      "n": 76,
+      "n_high": 20,
+      "high_recall": 1.0,
+      "high_recall_wilson95": [
+        0.8388698745050667,
+        1.0
+      ],
+      "high_fn": 0,
+      "high_fp": 8,
+      "t_refer": 0.1964,
+      "high_sent_to_recheck": 0,
+      "high_sent_to_routine": 0,
+      "actions": {
+        "refer": 28,
+        "recheck": 10,
+        "routine": 38
+      },
+      "high_recall_ci95": [
+        1.0,
+        1.0
+      ]
+    },
+    "M2_random_forest": {
+      "n": 76,
+      "n_high": 20,
+      "high_recall": 0.95,
+      "high_recall_wilson95": [
+        0.7638641064874331,
+        0.9911187805671268
+      ],
+      "high_fn": 1,
+      "high_fp": 1,
+      "accuracy": 0.8026315789473685,
+      "macro_f1": 0.7358585858585859,
+      "recall": {
+        "low": 0.9024390243902439,
+        "mid": 0.3333333333333333,
+        "high": 0.95
+      },
+      "precision": {
+        "low": 0.7872340425531915,
+        "mid": 0.5555555555555556,
+        "high": 0.95
+      },
+      "high_recall_ci95": [
+        0.8333333333333334,
+        1.0
+      ]
+    },
+    "M2_random_forest_triage": {
+      "n": 76,
+      "n_high": 20,
+      "high_recall": 1.0,
+      "high_recall_wilson95": [
+        0.8388698745050667,
+        1.0
+      ],
+      "high_fn": 0,
+      "high_fp": 4,
+      "t_refer": 0.13,
+      "high_sent_to_recheck": 0,
+      "high_sent_to_routine": 0,
+      "actions": {
+        "refer": 24,
+        "recheck": 9,
+        "routine": 43
+      },
+      "high_recall_ci95": [
+        1.0,
+        1.0
+      ]
+    }
+  }
+}

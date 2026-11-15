@@ -1,0 +1,165 @@
+{
+  "note": "5-fold stratified CV on the training set (n=304). Test set not used.",
+  "features": [
+    "Age",
+    "SystolicBP",
+    "DiastolicBP",
+    "BS",
+    "BodyTemp",
+    "HeartRate"
+  ],
+  "feature_check": {
+    "raw6": {
+      "t_refer": 0.1964,
+      "fp_at_target_recall": 63,
+      "macro_f1": 0.5948429532034988
+    },
+    "raw6+PP+MAP": {
+      "t_refer": 0.1916,
+      "fp_at_target_recall": 65,
+      "macro_f1": 0.5978823146938431
+    }
+  },
+  "engineered_features_kept": false,
+  "thresholds": {
+    "t_refer": 0.1964,
+    "t_recheck": 0.5,
+    "target_recall": 0.9
+  },
+  "m2_t_refer": 0.13,
+  "deploy": "M1",
+  "m2_beats_rule": true,
+  "deploy_reason": "Decided on CV only, before the test set was opened. M1 is deployed because it is explainable and ports exactly to the browser. If m2_beats_rule is true, the random forest was the stronger model in CV and we say so in the write-up.",
+  "rows": {
+    "B0_majority": {
+      "n": 304,
+      "n_high": 81,
+      "high_recall": 0.0,
+      "high_recall_wilson95": [
+        0.0,
+        0.04527967412212876
+      ],
+      "high_fn": 81,
+      "high_fp": 0,
+      "accuracy": 0.5328947368421053,
+      "macro_f1": 0.2317596566523605,
+      "recall": {
+        "low": 1.0,
+        "mid": 0.0,
+        "high": 0.0
+      },
+      "precision": {
+        "low": 0.5328947368421053,
+        "mid": 0.0,
+        "high": 0.0
+      }
+    },
+    "B1_clinical_rule": {
+      "n": 304,
+      "n_high": 81,
+      "high_recall": 0.9012345679012346,
+      "high_recall_wilson95": [
+        0.8170331024146836,
+        0.9491004924255834
+      ],
+      "high_fn": 8,
+      "high_fp": 72,
+      "accuracy": 0.4967105263157895,
+      "macro_f1": 0.4652811879953947,
+      "recall": {
+        "low": 0.3765432098765432,
+        "mid": 0.2786885245901639,
+        "high": 0.9012345679012346
+      },
+      "precision": {
+        "low": 0.8243243243243243,
+        "mid": 0.2,
+        "high": 0.503448275862069
+      }
+    },
+    "M1_logreg": {
+      "n": 304,
+      "n_high": 81,
+      "high_recall": 0.5925925925925926,
+      "high_recall_wilson95": [
+        0.4837611469314996,
+        0.6930389134162541
+      ],
+      "high_fn": 33,
+      "high_fp": 18,
+      "accuracy": 0.6447368421052632,
+      "macro_f1": 0.5948429532034988,
+      "recall": {
+        "low": 0.7530864197530864,
+        "mid": 0.4262295081967213,
+        "high": 0.5925925925925926
+      },
+      "precision": {
+        "low": 0.8243243243243243,
+        "mid": 0.28888888888888886,
+        "high": 0.7272727272727273
+      }
+    },
+    "M1_logreg_triage": {
+      "n": 304,
+      "n_high": 81,
+      "high_recall": 0.9012345679012346,
+      "high_recall_wilson95": [
+        0.8170331024146836,
+        0.9491004924255834
+      ],
+      "high_fn": 8,
+      "high_fp": 63,
+      "t_refer": 0.1964,
+      "high_sent_to_recheck": 6,
+      "high_sent_to_routine": 2,
+      "actions": {
+        "refer": 136,
+        "recheck": 56,
+        "routine": 112
+      }
+    },
+    "M2_random_forest": {
+      "n": 304,
+      "n_high": 81,
+      "high_recall": 0.7530864197530864,
+      "high_recall_wilson95": [
+        0.6491553720865343,
+        0.8340981261973265
+      ],
+      "high_fn": 20,
+      "high_fp": 19,
+      "accuracy": 0.7467105263157895,
+      "macro_f1": 0.6559145515137151,
+      "recall": {
+        "low": 0.9135802469135802,
+        "mid": 0.29508196721311475,
+        "high": 0.7530864197530864
+      },
+      "precision": {
+        "low": 0.8131868131868132,
+        "mid": 0.42857142857142855,
+        "high": 0.7625
+      }
+    },
+    "M2_random_forest_triage": {
+      "n": 304,
+      "n_high": 81,
+      "high_recall": 0.9012345679012346,
+      "high_recall_wilson95": [
+        0.8170331024146836,
+        0.9491004924255834
+      ],
+      "high_fn": 8,
+      "high_fp": 44,
+      "t_refer": 0.13,
+      "high_sent_to_recheck": 4,
+      "high_sent_to_routine": 4,
+      "actions": {
+        "refer": 117,
+        "recheck": 25,
+        "routine": 162
+      }
+    }
+  }
+}

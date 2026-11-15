@@ -2,7 +2,8 @@
 # models/*.joblib and the Colab notebook behave the same everywhere.
 pandas==3.1.1
 numpy==2.5.4
-scikit-learn==1.9.1
+# 1.8.0, not 1.9.1: Windows Application Control blocked two 1.9.1 binaries on the dev laptop
+scikit-learn==1.8.0
 matplotlib==3.11.2
 ucimlrepo==0.0.7
 joblib==1.6.0
