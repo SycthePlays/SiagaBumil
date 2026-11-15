@@ -62,13 +62,18 @@ Features must be things a **bidan desa can measure in a village**: age, BP cuff,
 
 | Step | Rows before | Rows after | Decision + reason |
 |---|---|---|---|
-| Load UCI raw | | | |
-| Drop exact duplicates | | | |
-| Conflicting duplicates | | | |
-| Implausible values | | | |
-| Train / test split | | train __ / test __ | stratified 80/20, random_state=42 |
+| Load UCI raw | — | 1014 | no missing values; classes low 406 · mid 336 · high 272 |
+| Drop exact duplicates | 1014 | 452 | 562 rows are exact copies (same 6 vitals + same label); keep one of each |
+| Conflicting duplicates | 452 | 381 | 35 sets of identical vitals carry different labels (71 rows). True label unknown → drop the whole group. Keep-majority rejected: the counts come from copied rows and many are 2-vs-2 ties |
+| Implausible values | 381 | 380 | 1 row with HeartRate = 7 bpm removed. 7 rows with Age > 60 kept and flagged (limitation) |
+| Train / test split | 380 | train 304 / test 76 | stratified 80/20, random_state=42 |
 
-Class balance after dedupe: low __ · mid __ · high __
+Class balance after cleaning: low 203 · mid 76 · high 101
+Train: low 162 · mid 61 · high 81 — Test: low 41 · mid 15 · high 20
+
+All numbers above come from `results/cleaning_log.json` (written by `pipeline/01_load_clean.py` and `02_split.py`).
+
+**E3 external dataset: dropped for time (Sun 18:00).** §4 below was not run.
 
 ---
 

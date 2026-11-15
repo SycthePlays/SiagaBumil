@@ -1,5 +1,7 @@
 # SigapBumil — CLAUDE.md
 
+> **Scope cuts in `HANDOFF.md` override this and other docs** (E3 external dataset, tree grid search, Hugging Face fallback and dark mode are all cut).
+
 Project brief for Claude Code. **Read this file first, then `HANDOFF.md` (current status), then `PLAN.md` (what to do next).** Detailed specs live in the other docs (see §8).
 
 ---
@@ -206,7 +208,7 @@ python -m http.server -d web 8000   # preview site at http://localhost:8000
   1. show the key results (table/plot paths),
   2. write 3–5 bullet **"How to explain this to judges"** notes into `HANDOFF.md`,
   3. update `HANDOFF.md` → Done / Next / Open issues,
-  4. commit.
+  4. commit — **with approval**: at the end of every phase show `git status`, a short change summary and a proposed commit message, then WAIT for the developer's "ya"/"ok" before committing and pushing. Never push without approval.
 - **Before Phase 5, read `WEB-SPEC.md` in full** and follow its design tokens, layout, states and acceptance checklist. Don't invent a different visual style.
 - If a step blocks for more than ~30 minutes (e.g. a dataset won't load), stop and propose the fallback in `PLAN.md` instead of pushing on.
 - Ask before any irreversible or scope-changing action.

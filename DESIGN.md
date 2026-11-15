@@ -130,3 +130,5 @@ Purpose: judges see the trained model working and the results, in one click, wit
 - Data from rural **Bangladesh**, not Indonesia; small sample after dedupe.
 - Six vitals only; no gestational age, Hb, proteinuria, history.
 - Thresholds tuned for recall → more false alarms by design.
+- **Conflicting duplicates removed** (35 sets of identical vitals with different labels, 71 rows): the ambiguous cases are gone, so the remaining data is cleaner than real life and results may be slightly optimistic.
+- Test set has only 20 high-risk rows → report a bootstrap 95% CI and show CV results beside test results.

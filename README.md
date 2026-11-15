@@ -43,7 +43,7 @@ _Held-out test set, n = __._
 
 **Where it fails:** _1–2 concrete missed cases and why we think it happens._
 
-**Limitations:** labels are assigned risk levels, not real outcomes; data from rural Bangladesh, not Indonesia; small sample after deduplication; six vitals only; thresholds favour recall, so false alarms are higher by design.
+**Limitations:** labels are assigned risk levels, not real outcomes; data from rural Bangladesh, not Indonesia; small sample after deduplication; rows with identical vitals but conflicting labels were removed, so the remaining data is cleaner than real life and results may be slightly optimistic; six vitals only; thresholds favour recall, so false alarms are higher by design.
 
 ## What we'd do next
 

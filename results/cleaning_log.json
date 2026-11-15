@@ -1,0 +1,43 @@
+{
+  "raw_rows": 1014,
+  "raw_class_counts": {
+    "low": 406,
+    "mid": 336,
+    "high": 272
+  },
+  "exact_duplicate_rows_removed": 562,
+  "rows_after_exact_dedupe": 452,
+  "conflicting_vital_groups": 35,
+  "conflicting_rows_removed": 71,
+  "implausible_rows_removed": 1,
+  "implausible_rows": [
+    {
+      "Age": 16,
+      "SystolicBP": 120,
+      "DiastolicBP": 75,
+      "BS": 7.9,
+      "BodyTemp": 98.0,
+      "HeartRate": 7,
+      "RiskLevel": "low"
+    }
+  ],
+  "rows_age_over_60_kept": 7,
+  "clean_rows": 380,
+  "clean_class_counts": {
+    "low": 203,
+    "high": 101,
+    "mid": 76
+  },
+  "train_rows": 304,
+  "test_rows": 76,
+  "train_class_counts": {
+    "low": 162,
+    "high": 81,
+    "mid": 61
+  },
+  "test_class_counts": {
+    "low": 41,
+    "high": 20,
+    "mid": 15
+  }
+}
