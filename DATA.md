@@ -48,12 +48,12 @@ Features must be things a **bidan desa can measure in a village**: age, BP cuff,
 ## 4. Checks for the external dataset (first 30 min of Phase 1)
 
 - [ ] Downloaded manually → `data/raw/external_mojumdar/` (commit only if licence allows; otherwise gitignore + document download steps here)
-- [ ] Row count: ____
-- [ ] Licence: ____
-- [ ] Units — BS in mmol/L? Body temp in °F or °C? ____
-- [ ] Missing values: ____
-- [ ] Label values and mapping → `high` vs `not-high`: ____
-- [ ] Overlap check: are any rows identical to UCI rows? (if many → not independent; report) ____
+- [ ] Row count: not run (E3 cut)
+- [ ] Licence: not run (E3 cut)
+- [ ] Units — BS in mmol/L? Body temp in °F or °C? not run (E3 cut)
+- [ ] Missing values: not run (E3 cut)
+- [ ] Label values and mapping → `high` vs `not-high`: not run (E3 cut)
+- [ ] Overlap check: are any rows identical to UCI rows? (if many → not independent; report) not run (E3 cut)
 - **If unusable after 30 min:** drop E3, note it below, rely on E1 (duplicate leakage) + E2 (age groups) as the "own question".
 
 ---

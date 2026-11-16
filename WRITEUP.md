@@ -2,7 +2,7 @@
 
 > This project is a prototype and is not medical advice.
 
-**Track:** Health · **Team:** Danish Ahmad Satria (solo) · **Live demo:** https://sycthePlays.github.io/SigapBumil/ · **Code and full write-up:** [README.md](README.md)
+**Track:** Health · **Team:** Danish Ahmad Satria (solo) · **Live demo:** https://sycthePlays.github.io/SigapBumil/ · **[Demo video (Google Drive)](https://drive.google.com/file/d/1e8caWtkl-DfvraemdiYMSoS-icgIKdax/view?usp=sharing)** · **[Colab walkthrough](https://colab.research.google.com/github/SycthePlays/SigapBumil/blob/main/notebooks/walkthrough.ipynb)** · **Code:** https://github.com/SycthePlays/SigapBumil · **Full write-up:** [README.md](README.md)
 
 ## The problem
 

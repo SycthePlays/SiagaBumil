@@ -6,9 +6,9 @@ Claude Code: update this at the **end of every session/phase**. Newest entry on 
 
 ## Current status
 
-- **Phase:** 6 done (README, Colab notebook, docs consistency) → waiting for developer's ok to commit + push
-- **Last updated:** Sun Nov 15, 21:40 WIB
-- **Next step (developer):** (1) confirm Pages source = GitHub Actions and open the live URL in incognito + on a phone; (2) open `notebooks/walkthrough.ipynb` in Colab, Run all, File → Save a copy in GitHub (outputs visible), `git pull`; (3) record the ≤ 2 min video and put its link in `README.md`; (4) submit (write-up = `WRITEUP.md`, one page; `README.md` is the longer version).
+- **Phase:** Submitted. Final version.
+- **Last updated:** Mon Nov 16, 10:44 WIB
+- **Next step:** none. Before the deadline, open every link (live site, repo, Colab, video) once in an incognito window.
 - **Blockers:** none. Repo: https://github.com/SycthePlays/SigapBumil (branch `main`). Pages URL (Phase 5): https://sycthePlays.github.io/SigapBumil/
 - **Commit rule:** end of every phase → show `git status` + summary + proposed message, wait for "ya"/"ok", then commit and push (`CLAUDE.md` §11).
 
@@ -93,6 +93,11 @@ Started ~6 h late. Where another doc still mentions these, this list wins:
 ---
 
 ## Log
+
+### Mon Nov 16, 10:44 — demo video link added, final polish
+- Demo video link (Google Drive, direct file link) added to `README.md` and `WRITEUP.md`, labelled "Demo video (Google Drive)". `WRITEUP.md` header now also links the Colab notebook and the repo.
+- Placeholder sweep: the blank `____` lines in `DATA.md` §4 (external dataset checklist, cut) now read "not run (E3 cut)". Left as is: `<hf-username>` in the cut Hugging Face section of `SETUP.md` (a how-to template, not used).
+- `pytest` and `node tests/test_parity.mjs` pass. Model, thresholds, metrics, `results/`, `data/`, `web/model.json` untouched.
 
 ### Mon Nov 16 — closing cards on the site + English default
 - Site: the "Limitations" card is replaced by four cards: limits (each with its consequence), benefits and next steps, use of AI, data sources. Numbers in them are read from `results.json`.
