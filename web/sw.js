@@ -1,7 +1,7 @@
 // Service worker: keeps a copy of the site's own files so the page opens
 // with no internet after the first visit. It only handles this site's files.
 
-const CACHE = "sigapbumil-v1";
+const CACHE = "sigapbumil-v2"; // change the number when the site changes, so old copies are dropped
 const FILES = [
   "./", "index.html", "style.css", "app.js", "inference.js", "model.json", "results.json",
   "img/favicon.svg", "img/confusion_m1_triage.png", "img/threshold_curve.png",
@@ -11,7 +11,14 @@ self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(FILES)).then(() => self.skipWaiting()));
 });
 
-self.addEventListener("activate", (event) => event.waitUntil(self.clients.claim()));
+// Delete copies saved under an older cache name, then take over open pages.
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys()
+      .then((names) => Promise.all(names.filter((name) => name !== CACHE).map((name) => caches.delete(name))))
+      .then(() => self.clients.claim())
+  );
+});
 
 // Cache first (fast, works offline). When online, the copy is refreshed in
 // the background, so the next visit gets the newest version.

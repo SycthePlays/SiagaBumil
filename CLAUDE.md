@@ -47,7 +47,7 @@ Project brief for Claude Code. **Read this file first, then `HANDOFF.md` (curren
 
 - **User:** a bidan desa during a routine antenatal visit, on her phone, possibly with weak internet.
 - **Moment:** vitals have just been measured; she must decide **today** whether to refer the mother to the puskesmas/hospital, ask her to come back for a recheck, or continue routine care.
-- **Design consequences:** mobile-first, Bahasa Indonesia first (English toggle), Indonesian units (blood sugar in **mg/dL**, temperature in **°C**), works offline, stores nothing.
+- **Design consequences:** mobile-first, English default with an Indonesian toggle (judges read English; the bidan can switch to Indonesian in one tap), Indonesian units (blood sugar in **mg/dL**, temperature in **°C**), works offline, stores nothing.
 
 ---
 

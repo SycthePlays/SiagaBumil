@@ -71,16 +71,41 @@ const STR = {
     fExternal: "Uji pada dataset lain: dilewati karena waktu.",
     altConfusion: "Matriks kebingungan pada data uji: tindakan model dibanding label sebenarnya",
     altThreshold: "Kurva ambang: ibu berisiko tinggi yang tertangkap dan alarm palsu di tiap ambang rujukan",
-    limitsTitle: "Keterbatasan",
-    limits: (rows, refer, n) => [
-      "Label adalah tingkat risiko yang ditetapkan, bukan hasil klinis nyata.",
-      "Data dari pedesaan Bangladesh, bukan Indonesia.",
-      `Sampel kecil setelah duplikat dihapus (${rows} baris).`,
-      "Baris dengan tanda vital sama tetapi label berbeda dihapus, jadi hasil bisa sedikit terlalu optimis.",
-      "Hanya enam tanda vital.",
-      `Disetel agar jarang melewatkan risiko tinggi, jadi sering merujuk (${refer} dari ${n} pada validasi silang).`,
-      "Bukan alat medis.",
+    // Each limit is [the limit, what it means in practice]. d = numbers from results.json.
+    limitsTitle: "Keterbatasan (dilaporkan apa adanya)",
+    limits: (d) => [
+      ["Label adalah tingkat risiko yang ditetapkan, bukan hasil klinis nyata.",
+        "Model meniru cara data asli diberi label; model tidak memprediksi komplikasi yang sebenarnya."],
+      ["Data dari pedesaan Bangladesh, bukan Indonesia.",
+        "Kami tidak menemukan dataset publik Indonesia yang berisi tanda vital per kunjungan dan label risiko. Enam tanda vital ini sama dengan yang diukur bidan desa, jadi pipeline dapat dilatih ulang tanpa perubahan dengan data puskesmas Indonesia."],
+      [`Sampel kecil: ${d.rows} baris setelah duplikat dihapus, hanya ${d.nHigh} ibu berisiko tinggi di data uji.`,
+        `Satu kasus terlewat menggeser recall uji ${d.step} poin; perkirakan sekitar ${d.cvRecall}% (validasi silang), data uji ${d.caught}/${d.nHigh} dengan interval Wilson 95% ${d.lo}–${d.hi}%.`],
+      [`Baris dengan tanda vital sama tetapi label berbeda dihapus (${d.groups} kelompok).`,
+        "Kunjungan nyata memuat kasus ambigu seperti ini, jadi hasil bisa sedikit terlalu optimis."],
+      ["Hanya enam tanda vital.", "Tanpa usia kehamilan, hemoglobin, protein urin atau riwayat."],
+      [`Disetel agar jarang melewatkan risiko tinggi, jadi sering merujuk (${d.refer} dari ${d.n} pada validasi silang).`,
+        "Alarm palsu berarti satu perjalanan ke puskesmas; kasus terlewat bisa berarti nyawa."],
+      ["Belum diuji dengan pengguna nyata (bidan).", ""],
+      ["Bukan alat medis.", "Alat ini membantu, tidak pernah menggantikan, penilaian bidan."],
     ],
+    benefitsTitle: "Manfaat dan langkah berikutnya",
+    helpsTitle: "Siapa yang terbantu",
+    helps: (share, before, after) => [
+      ["Bidan desa:", "pemeriksaan kedua untuk kombinasi tanda vital yang borderline, dengan alasannya, tanpa internet, dalam satuan Indonesia."],
+      ["Koordinator puskesmas:", "aturan rujukan yang konsisten dan dapat dijelaskan untuk semua bidan."],
+      ["Peneliti:", `bukti bahwa baris duplikat menaikkan skor pada dataset publik yang banyak dipakai (${share} baris uji mentah juga ada di data latih; akurasi random forest ${before} → ${after} setelah dibersihkan).`],
+    ],
+    complement: "SigapBumil melengkapi Buku KIA dan penilaian bidan, bukan menggantikannya.",
+    nextTitle: "Langkah berikutnya",
+    nextSteps: [
+      "Uji lapangan bersama bidan di puskesmas: apakah sarannya bisa dipakai, apakah bahasanya jelas.",
+      "Latih ulang dan validasi dengan data Indonesia yang memuat hasil kehamilan nyata.",
+      "Tambahkan usia kehamilan dan hemoglobin.",
+    ],
+    aiTitle: "Penggunaan AI",
+    aiText: "Kode dan dokumen ditulis dengan bantuan asisten pemrograman AI (Claude, melalui Claude Code), diarahkan dan diperiksa oleh penulis, yang dapat menjelaskan setiap bagiannya. Perencanaan dan desain didiskusikan dengan Claude. Commit yang dibuat dengan cara ini memuat baris Co-Authored-By di repositori. Modelnya sendiri adalah regresi logistik yang dilatih oleh pipeline kami sendiri; tidak ada data buatan AI yang dipakai. Contoh demo bersifat sintetis dan diberi label demikian.",
+    sourcesTitle: "Sumber data",
+    sourceNotes: ["data latih dan uji", "batas tekanan darah", "batas gula darah", "tanda bahaya; demam", "angka kematian ibu"],
     privacy: "Data tidak disimpan.",
     credits: "Data dan alat:",
     repoLink: "Lihat kode & laporan lengkap",
@@ -147,16 +172,40 @@ const STR = {
     fExternal: "Test on a separate dataset: skipped for time.",
     altConfusion: "Confusion matrix on the test set: the model's action against the true label",
     altThreshold: "Threshold curve: high-risk mothers caught and false alarms at each referral threshold",
-    limitsTitle: "Limitations",
-    limits: (rows, refer, n) => [
-      "Labels are assigned risk levels, not real outcomes.",
-      "Data from rural Bangladesh, not Indonesia.",
-      `Small sample after removing duplicates (${rows} rows).`,
-      "Rows with the same vitals but different labels were removed, so results may be slightly optimistic.",
-      "Six vitals only.",
-      `Tuned to rarely miss high risk, so it refers often (${refer} of ${n} in cross-validation).`,
-      "Not a medical device.",
+    limitsTitle: "Limits (reported as they are)",
+    limits: (d) => [
+      ["Labels are assigned risk levels, not real outcomes.",
+        "The model copies how the original data was labelled; it does not predict actual complications."],
+      ["Data from rural Bangladesh, not Indonesia.",
+        "We found no public Indonesian dataset with per-visit vitals and risk labels. The six vitals are the same ones a bidan desa measures, so the pipeline can be retrained unchanged on Indonesian puskesmas data."],
+      [`Small sample: ${d.rows} rows after removing duplicates, only ${d.nHigh} high-risk mothers in the test set.`,
+        `One miss moves test recall by ${d.step} points; expect about ${d.cvRecall}% (cross-validation), test ${d.caught}/${d.nHigh} with 95% Wilson interval ${d.lo}–${d.hi}%.`],
+      [`Rows with identical vitals but different labels were removed (${d.groups} groups).`,
+        "Real visits include such ambiguous cases, so results may be slightly optimistic."],
+      ["Six vitals only.", "No gestational age, haemoglobin, urine protein or history."],
+      [`Tuned to rarely miss high risk, so it refers often (${d.refer} of ${d.n} in cross-validation).`,
+        "A false alarm costs a trip to the puskesmas; a miss can cost a life."],
+      ["Not tested with real users (bidan) yet.", ""],
+      ["Not a medical device.", "It supports, never replaces, the bidan's judgement."],
     ],
+    benefitsTitle: "Benefits and next steps",
+    helpsTitle: "Who it helps",
+    helps: (share, before, after) => [
+      ["Village midwives:", "a second check on combinations of borderline vitals, with reasons, offline, in Indonesian units."],
+      ["Puskesmas coordinators:", "a consistent, explainable referral rule across midwives."],
+      ["Researchers:", `evidence that duplicate rows inflate a widely used public dataset (${share} of raw test rows also in train; random forest ${before} → ${after} accuracy after cleaning).`],
+    ],
+    complement: "SigapBumil complements Buku KIA and the midwife's judgement; it does not replace them.",
+    nextTitle: "Next steps",
+    nextSteps: [
+      "Field trial with bidan at a puskesmas: is the advice usable, is the language clear.",
+      "Retrain and validate on Indonesian data with real pregnancy outcomes.",
+      "Add gestational age and haemoglobin.",
+    ],
+    aiTitle: "Use of AI",
+    aiText: "Code and documents were written with the help of an AI coding assistant (Claude, through Claude Code), directed and reviewed by the author, who can explain every part. Planning and design were discussed with Claude. Commits made this way carry a Co-Authored-By line in the repository. The model itself is a logistic regression trained by our own pipeline; no AI-generated data was used. Demo examples are synthetic and labelled as such.",
+    sourcesTitle: "Data sources",
+    sourceNotes: ["training and test data", "blood pressure cutoffs", "blood sugar cutoff", "danger signs; fever", "maternal mortality figure"],
     privacy: "Nothing you enter is stored.",
     credits: "Data and tools:",
     repoLink: "See code and full write-up",
@@ -179,8 +228,17 @@ const COMMON = { age: [20, 35], sbp: [90, 139], dbp: [60, 89], sugar_mgdl: [70, 
 
 const ICONS = { refer: "⚠", recheck: "↻", routine: "✓" };
 
+// "Data sources" card: [name, link]. The short note after each one is STR[lang].sourceNotes, same order.
+const SOURCES = [
+  ["UCI Maternal Health Risk (Ahmed, 2020), CC BY 4.0", "https://doi.org/10.24432/C5DP5D"],
+  ["WHO (2011), recommendations for prevention and treatment of pre-eclampsia and eclampsia", "https://www.who.int/publications/i/item/9789241548335"],
+  ["WHO (2013), diagnostic criteria and classification of hyperglycaemia first detected in pregnancy", "https://www.who.int/publications/i/item/WHO-NMH-MND-13.2"],
+  ["Buku KIA, Kementerian Kesehatan RI", null],
+  ["UNFPA Indonesia", "https://indonesia.unfpa.org/en/node/164180"],
+];
+
 // ---- page state (kept in memory only) --------------------------------------
-let lang = "id";
+let lang = "en";          // English first (judges); the bidan switches to Indonesian in one tap. Not saved anywhere.
 let sugarUnit = "mgdl";   // or "mmol"
 let model = null;         // model.json
 let results = null;       // results.json
@@ -396,9 +454,29 @@ function renderHow() {
       <figure><img src="img/confusion_m1_triage.png" loading="lazy" alt="${S.altConfusion}"><figcaption>${S.altConfusion}</figcaption></figure>
       <figure><img src="img/threshold_curve.png" loading="lazy" alt="${S.altThreshold}"><figcaption>${S.altThreshold}</figcaption></figure>
     </div>`;
+}
 
-  const cv = m1.cv;
-  $("limits-list").innerHTML = S.limits(results.data.clean_rows, cv.actions.refer, cv.n).map((t) => `<li>${t}</li>`).join("");
+// ---- closing cards: limits, benefits, sources ------------------------------
+function renderClosing() {
+  const S = STR[lang];
+  const pair = ([head, text]) => `<li><strong>${head}</strong> ${text}</li>`;
+  $("next-list").innerHTML = S.nextSteps.map((t) => `<li>${t}</li>`).join("");
+  $("sources-list").innerHTML = SOURCES.map(([name, url], k) =>
+    `<li>${url ? `<a href="${url}">${name}</a>` : name} (${S.sourceNotes[k]})</li>`).join("");
+  if (!results) return; // the two lists below need numbers from results.json
+
+  const m1 = results.results.M1_logreg_triage, test = m1.test, cv = m1.cv;
+  const leak = results.experiments.E1_duplicate_leakage, forest = leak.models.M2_random_forest;
+  $("limits-list").innerHTML = S.limits({
+    rows: results.data.clean_rows, groups: results.data.conflicting_vital_groups,
+    nHigh: test.n_high, caught: test.n_high - test.high_fn,
+    step: Math.round(100 / test.n_high),            // one mother = this many recall points
+    cvRecall: Math.round(cv.high_recall * 100),
+    lo: Math.round(test.high_recall_wilson95[0] * 100), hi: Math.round(test.high_recall_wilson95[1] * 100),
+    refer: cv.actions.refer, n: cv.n,
+  }).map(pair).join("");
+  $("helps-list").innerHTML = S.helps(pct(leak.raw_test_share_also_in_train),
+    pct(forest.with_duplicates_holdout.accuracy), pct(forest.after_cleaning_holdout.accuracy)).map(pair).join("");
 }
 
 // ---- language + static text ------------------------------------------------
@@ -419,6 +497,7 @@ function renderAll() {
   renderStatic();
   renderResult();
   renderHow();
+  renderClosing();
 }
 
 // ---- start -----------------------------------------------------------------

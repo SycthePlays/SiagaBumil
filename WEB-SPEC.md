@@ -8,7 +8,7 @@ Static site in `web/`, deployed by GitHub Pages. Plain HTML/CSS/JS, no framework
 ## 1. Principles
 
 - **Mobile-first** — the bidan uses a phone. Design at 360 px width first, then scale up.
-- **Bahasa Indonesia default**, English toggle (judges read English). All text bilingual via one dictionary object in `app.js` (`STR.id`, `STR.en`). No hard-coded UI strings in HTML.
+- **English default, Indonesian toggle** (changed Mon Nov 16: judges read English; the bidan can switch to Indonesian in one tap). Toggle order **EN | ID**. The choice lasts only while the page is open; it is not saved. All text bilingual via one dictionary object in `app.js` (`STR.id`, `STR.en`). No hard-coded UI strings in HTML.
 - **Offline after first load**: all logic + `model.json` local; a tiny service worker (`sw.js`) caches the site files. System font stack — no web fonts, no CDN.
 - **Privacy**: no storage of inputs, no cookies, no analytics, no network requests except the site's own files. Say so in the footer: *"Data tidak disimpan / Nothing you enter is stored."*
 - **Disclaimer on every result**: *"Prototipe, bukan nasihat medis. / This project is a prototype and is not medical advice."*
@@ -60,7 +60,7 @@ Dark mode (`@media (prefers-color-scheme: dark)`) was optional — **cut**.
 
 ### 4.1 Header
 - Wordmark + tagline: *"Bantu bidan memutuskan rujukan lebih cepat"* / *"Helping village midwives decide referrals faster."*
-- Language toggle **ID | EN** (segmented control, top-right). Switching language re-renders all text, including an existing result.
+- Language toggle **EN | ID**, English selected on first load (segmented control, top-right). Switching language re-renders all text, including an existing result.
 - Small badge: *"Prototipe · Veritas AI Hackathon 2026"*.
 
 ### 4.2 Checker card (main)
@@ -110,8 +110,10 @@ Result region has `aria-live="polite"` so screen readers announce it.
 - Images copied from `results/` into `web/img/`: confusion matrix, threshold curve. `loading="lazy"`, alt text.
 - Link: *"Lihat kode & laporan lengkap / See code and full write-up"* → GitHub repo.
 
-### 4.5 Limitations
-Short bulleted card: labels are assigned risk not outcomes · data from rural Bangladesh, not Indonesia · small sample after removing duplicates · six vitals only · tuned to catch high risk, so more false alarms · not a medical device.
+### 4.5 Closing cards (replaces the single Limitations card, Mon Nov 16)
+Four cards, in this order, numbers read from `results.json`: (1) **Limits (reported as they are)**: each limit with its consequence; (2) **Benefits and next steps**: who it helps, the "complements Buku KIA" line, numbered next steps; (3) **Use of AI**; (4) **Data sources** with links (UCI, WHO 2011, WHO 2013, Buku KIA, UNFPA).
+
+Original short list, for reference: labels are assigned risk not outcomes · data from rural Bangladesh, not Indonesia · small sample after removing duplicates · six vitals only · tuned to catch high risk, so more false alarms · not a medical device.
 
 ### 4.6 Footer
 Credits (UCI dataset with link, scikit-learn, Claude / Claude Code), GitHub link, privacy line, disclaimer.

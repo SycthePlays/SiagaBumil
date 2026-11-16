@@ -94,6 +94,13 @@ Started ~6 h late. Where another doc still mentions these, this list wins:
 
 ## Log
 
+### Mon Nov 16 — closing cards on the site + English default
+- Site: the "Limitations" card is replaced by four cards: limits (each with its consequence), benefits and next steps, use of AI, data sources. Numbers in them are read from `results.json`.
+- Language: English is now the default, toggle order EN | ID. The choice is kept in memory only while the page is open (no storage). `WEB-SPEC.md` §1 and `CLAUDE.md` §4 updated.
+- `README.md` and `WRITEUP.md`: limitations reworded as limit + consequence; "Who it helps" and "Use of AI" added.
+- `sw.js`: cache name bumped to `sigapbumil-v2`; old caches are deleted on activate.
+- Model, thresholds, metrics, `results/` untouched.
+
 ### Sun Nov 15 — walkthrough notebook: Colab-friendly + saved outputs
 - Cell 1 no longer installs `requirements.txt` (the pinned versions clash with Colab's own pandas/numpy). It clones only when running in Colab and the folder is missing; locally it just moves to the repo root. Note added: Colab's libraries are used, the pins are for full local reproduction.
 - Outputs saved by executing locally with `python -m nbconvert --execute --inplace` (path B; no Colab-run copy was found). nbconvert + ipykernel were installed into `.venv` only, **not** added to `requirements.txt`. The `jupyter` launcher exe was blocked by Windows Application Control; the policy was not changed.

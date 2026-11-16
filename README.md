@@ -66,17 +66,17 @@ High-risk class. CV = 5-fold cross-validation on the 304 training rows (81 high-
 - **One abnormal value among normal ones.** Age 40, BP 120/95, blood sugar 7.0 was labelled high; the model said routine because a linear model lets the normal values outweigh the diastolic 95. The danger-sign warning covers this case.
 - **Fever cases cause false alarms.** Mothers at 101–103 °F labelled low or mid were referred.
 
-**Limitations**
+**Limits (reported as they are)**
 
-- Labels are assigned risk levels, not real outcomes.
-- Data from rural Bangladesh, not Indonesia.
-- 380 rows after cleaning; only 20 high-risk mothers in the test set.
-- Rows with conflicting labels were removed, so the data is cleaner than reality and results may be slightly optimistic.
-- 7 rows with age over 60 were kept.
-- Tuned to rarely miss high risk, so it refers often (136 of 304 in CV).
-- Six vitals only.
-- Not tested with real users yet.
-- Not a medical device.
+- **Labels are assigned risk levels, not real outcomes.** The model copies how the original data was labelled; it does not predict actual complications.
+- **Data from rural Bangladesh, not Indonesia.** We found no public Indonesian dataset with per-visit vitals and risk labels. The six vitals are the same ones a bidan desa measures, so the pipeline can be retrained unchanged on Indonesian puskesmas data.
+- **Small sample: 380 rows after removing duplicates, only 20 high-risk mothers in the test set.** One miss moves test recall by 5 points; expect about 90% (cross-validation), test 20/20 with 95% Wilson interval 84–100%.
+- **Rows with identical vitals but different labels were removed (35 groups).** Real visits include such ambiguous cases, so results may be slightly optimistic.
+- **Six vitals only.** No gestational age, haemoglobin, urine protein or history.
+- **Tuned to rarely miss high risk, so it refers often (136 of 304 in cross-validation).** A false alarm costs a trip to the puskesmas; a miss can cost a life.
+- **7 rows with age over 60 were kept.** They are unlikely pregnancies, but we did not delete data on a guess.
+- **Not tested with real users (bidan) yet.**
+- **Not a medical device.** It supports, never replaces, the bidan's judgement.
 
 **Honest notes**
 
@@ -85,11 +85,23 @@ High-risk class. CV = 5-fold cross-validation on the 304 training rows (81 high-
 - **scikit-learn is pinned to 1.8.0**, not the newer 1.9.1, because a Windows Application Control policy on the development laptop blocked two 1.9.1 binaries.
 - **A test on a separately collected dataset was planned and skipped for time.**
 
+## Who it helps
+
+- **Village midwives:** a second check on combinations of borderline vitals, with reasons, offline, in Indonesian units.
+- **Puskesmas coordinators:** a consistent, explainable referral rule across midwives.
+- **Researchers:** evidence that duplicate rows inflate a widely used public dataset (79% of raw test rows also in train; random forest 87% → 80% accuracy after cleaning).
+
+SigapBumil complements Buku KIA and the midwife's judgement; it does not replace them.
+
 ## What we'd do next
 
-- A field trial with bidan at a puskesmas: is the result clear, and does it change the referral decision?
-- Validate on Indonesian data with real outcomes.
-- Add gestational age and haemoglobin (Hb).
+1. Field trial with bidan at a puskesmas: is the advice usable, is the language clear.
+2. Retrain and validate on Indonesian data with real pregnancy outcomes.
+3. Add gestational age and haemoglobin.
+
+## Use of AI
+
+Code and documents were written with the help of an AI coding assistant (Claude, through Claude Code), directed and reviewed by the author, who can explain every part. Planning and design were discussed with Claude. Commits made this way carry a Co-Authored-By line in the repository. The model itself is a logistic regression trained by our own pipeline; no AI-generated data was used. Demo examples are synthetic and labelled as such.
 
 ## How to run
 
@@ -116,4 +128,5 @@ All numbers above come from `results/summary.json`, written by the pipeline.
   - Temperature ≥ 38.0 °C (100.4 °F): the common clinical definition of fever.
   - The "mid" band (BP 130–139 or 80–89, blood sugar 7.8–11.0 mmol/L, pulse over 100) is our own simplification.
 - **Libraries:** pandas, NumPy, scikit-learn, matplotlib, ucimlrepo, joblib, pytest. The web app uses no libraries.
-- **AI tools:** Claude (planning and design discussion), Claude Code (code generation and documentation), used under the hackathon rules; all code reviewed and understood by the author.
+- **Danger signs (fever):** Buku KIA, Kementerian Kesehatan RI.
+- **AI tools:** Claude (planning and design discussion), Claude Code (code generation and documentation), used under the hackathon rules; all code reviewed and understood by the author. See "Use of AI" above.

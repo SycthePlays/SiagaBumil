@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,9 +18,9 @@
       </svg>
       <span>Sigap<b>Bumil</b></span>
     </h1>
-    <div class="lang" role="group" aria-label="Bahasa / Language">
-      <button type="button" data-lang="id" aria-pressed="true">ID</button>
-      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    <div class="lang" role="group" aria-label="Language / Bahasa">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="id" aria-pressed="false">ID</button>
     </div>
     <p class="tagline" data-i18n="tagline"></p>
     <span class="badge" data-i18n="badge"></span>
@@ -113,9 +113,29 @@
       <div id="how-body"></div>
     </details>
 
+    <!-- Closing cards. Text from STR in app.js; numbers from results.json. -->
     <section class="card" aria-labelledby="limits-title">
       <h2 id="limits-title" data-i18n="limitsTitle"></h2>
       <ul id="limits-list"></ul>
+    </section>
+
+    <section class="card" aria-labelledby="benefits-title">
+      <h2 id="benefits-title" data-i18n="benefitsTitle"></h2>
+      <h3 data-i18n="helpsTitle"></h3>
+      <ul id="helps-list"></ul>
+      <p class="callout" data-i18n="complement"></p>
+      <h3 data-i18n="nextTitle"></h3>
+      <ol id="next-list"></ol>
+    </section>
+
+    <section class="card" aria-labelledby="ai-title">
+      <h2 id="ai-title" data-i18n="aiTitle"></h2>
+      <p data-i18n="aiText"></p>
+    </section>
+
+    <section class="card" aria-labelledby="sources-title">
+      <h2 id="sources-title" data-i18n="sourcesTitle"></h2>
+      <ul id="sources-list"></ul>
     </section>
   </main>
 
@@ -133,7 +153,7 @@
     </p>
   </footer>
 
-  <noscript>JavaScript diperlukan / JavaScript is required.</noscript>
+  <noscript>JavaScript is required / JavaScript diperlukan.</noscript>
   <script type="module" src="app.js"></script>
 </body>
 </html>
